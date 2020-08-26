@@ -1,18 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { logout } from "../store/user";
-import { Menu } from "@material-ui/icons";
+import React from 'react'
+import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {logout} from '../store/user'
+import {Menu} from '@material-ui/icons'
 
 import {
   AppBar,
   Toolbar,
   IconButton,
   Typography,
-  Button,
-} from "@material-ui/core";
+  Button
+} from '@material-ui/core'
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({handleClick, isLoggedIn}) => (
   // <div>
   //   <h2>Offline Reader</h2>
   //   <nav>
@@ -38,28 +38,25 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 
   <AppBar position="sticky">
     <Toolbar>
-      <Link to={"/home"} style={{ textDecoration: "none", color: "#FFF" }}>
+      <Link to="/home" style={{textDecoration: 'none', color: '#FFF'}}>
         <Button color="inherit">Home</Button>
       </Link>
       {isLoggedIn ? (
         <div className="navButton">
           <Link
-            to={"/readinglist"}
-            style={{ textDecoration: "none", color: "#FFF" }}
+            to="/readinglist"
+            style={{textDecoration: 'none', color: '#FFF'}}
           >
             <Button color="inherit">Reading List</Button>
           </Link>
 
           <Link
-            to={"/interestMe"}
-            style={{ textDecoration: "none", color: "#FFF" }}
+            to="/interestMe"
+            style={{textDecoration: 'none', color: '#FFF'}}
           >
             <Button color="inherit">Interest Me</Button>
           </Link>
-          <Link
-            to={"/profile"}
-            style={{ textDecoration: "none", color: "#FFF" }}
-          >
+          <Link to="/profile" style={{textDecoration: 'none', color: '#FFF'}}>
             <Button color="inherit">Profile</Button>
           </Link>
 
@@ -67,7 +64,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             <a
               href="#"
               onClick={handleClick}
-              style={{ textDecoration: "none", color: "#FFF" }}
+              style={{textDecoration: 'none', color: '#FFF'}}
             >
               Logout
             </a>
@@ -75,33 +72,30 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
         </div>
       ) : (
         <div>
-          <Link to={"/login"} style={{ textDecoration: "none", color: "#FFF" }}>
+          <Link to="/login" style={{textDecoration: 'none', color: '#FFF'}}>
             <Button color="inherit">Login</Button>
           </Link>
-          <Link
-            to={"/signup"}
-            style={{ textDecoration: "none", color: "#FFF" }}
-          >
+          <Link to="/signup" style={{textDecoration: 'none', color: '#FFF'}}>
             <Button color="inherit">Sign Up</Button>
           </Link>
         </div>
       )}
     </Toolbar>
   </AppBar>
-);
+)
 
-const mapState = (state) => {
+const mapState = state => {
   return {
-    isLoggedIn: !!state.user.email,
-  };
-};
+    isLoggedIn: !!state.user.email
+  }
+}
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = dispatch => {
   return {
     handleClick() {
-      dispatch(logout());
-    },
-  };
-};
+      dispatch(logout())
+    }
+  }
+}
 
-export default connect(mapState, mapDispatch)(Navbar);
+export default connect(mapState, mapDispatch)(Navbar)

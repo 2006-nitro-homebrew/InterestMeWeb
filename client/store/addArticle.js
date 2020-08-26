@@ -1,5 +1,5 @@
 import db from '../db/index'
-// import { scrapeAll } from "../scraper";
+import axios from 'axios'
 
 //Action types
 const ADD_ARTICLE = 'ADD_ARTICLE'
@@ -17,23 +17,30 @@ export const addArticle = (newArticle) => {
 export const fetchAddArticle = (userId) => {
   //add articleurl as parameter later
   return async (dispatch) => {
-    try {
-      db.collection(`users/${userId}/savedOffline`) //replace testuser with actual user id
-        .add({
-          // content: scrapeAll(
-          //   "http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
-          // ).content,
-          // style: scrapeAll(
-          //   "http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
-          // ).style,
-        })
-        .then(function (docRef) {
-          console.log('Document written with ID: ', docRef.id)
-          dispatch(addArticle(docRef.id))
-        })
-    } catch (err) {
-      console.error(err)
-    }
+    console.log('fetchaddarticle')
+    let data = await axios.get('./api/users/pull')
+    // console.log(data)
+    console.log(data)
+    dispatch(data)
+    // scrapeAll("http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html").then((result) => console.log(result));
+
+    // try {
+    //   db.collection(`users/${userId}/savedOffline`) //replace testuser with actual user id
+    //     .add({
+    //       content: scrapeAll(
+    //         "http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
+    //       ).content,
+    //       style: scrapeAll(
+    //         "http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
+    //       ).style,
+    //     })
+    //     .then(function (docRef) {
+    //       console.log("Document written with ID: ", docRef.id);
+    //       dispatch(addArticle(docRef.id));
+    //     });
+    // } catch (err) {
+    //   console.error(err);
+    // }
   }
 }
 
