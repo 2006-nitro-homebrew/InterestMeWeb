@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {fetchArticles} from '../store/articles'
 import {fetchAddArticle} from '../store/addArticle'
 import {Link} from 'react-router-dom'
-// import firebase from "firebase";
+import firebase from "firebase";
 
 export class ReadingList extends React.Component {
   // constructor() {
@@ -11,12 +11,11 @@ export class ReadingList extends React.Component {
   // }
 
   async componentDidMount() {
-    // firebase.auth().onAuthStateChanged((user) => {
-    //   if (user) {
-    //     this.props.getArticles(user.uid);
-    //   } else {
-    //   }
-    // });
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.props.getArticles(user.uid);
+      } else {}
+    });
   }
 
   renderTableHeader() {
@@ -33,7 +32,7 @@ export class ReadingList extends React.Component {
     console.log(allList)
     return (
       <div>
-        {/* <h3 id="title">Saved Reading List</h3>
+        <h3 id="title">Saved Reading List</h3>
         <table id="readinglist">
           <tbody>
             {allList.length > 0 ? (
@@ -55,7 +54,7 @@ export class ReadingList extends React.Component {
               <h1>Nothing Saved</h1>
             )}
           </tbody>
-        </table> */}
+        </table>
       </div>
     )
   }
@@ -63,14 +62,14 @@ export class ReadingList extends React.Component {
 
 const mapState = (state) => {
   return {
-    // list: state.articles,
-    // user: state.user,
+    list: state.articles,
+    user: state.user,
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    // getArticles: (uid) => dispatch(fetchArticles(uid)),
+    getArticles: (uid) => dispatch(fetchArticles(uid)),
     // addArticle: (id) => dispatch(fetchAddArticle(id)),
   }
 }
