@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {fetchArticles} from '../store/articles'
 import {fetchAddArticle} from '../store/addArticle'
 import {Link} from 'react-router-dom'
-import firebase from "firebase";
+import firebase from 'firebase'
 
 export class ReadingList extends React.Component {
   // constructor() {
@@ -13,9 +13,10 @@ export class ReadingList extends React.Component {
   async componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.props.getArticles(user.uid);
-      } else {}
-    });
+        this.props.getArticles(user.uid)
+      } else {
+      }
+    })
   }
 
   renderTableHeader() {
@@ -29,8 +30,7 @@ export class ReadingList extends React.Component {
 
   render() {
     let allList = this.props.list
-    // console.log(allList)
-    // this.props.addArticle("testuser")
+
     return (
       <div>
         <h3 id="title">Saved Reading List</h3>

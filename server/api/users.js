@@ -16,7 +16,6 @@ router.post('/pull', async (req, res, next) => {
     .doc(req.body.userId)
     .collection('savedOffline')
     .add({html:result})
-
   })
 
   } catch (error) {

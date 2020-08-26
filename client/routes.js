@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 // import PropTypes from "prop-types";
 import {Login, InterestMe, Home, Signup} from './components'
+
 import ReadingList from './components/ReadingList'
 import SingleArticle from './components/SingleArticle'
 import AddArticle from './components/AddArticle'

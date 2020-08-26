@@ -46,6 +46,7 @@
     "express-session": "^1.15.1",
     "firebase": "^7.19.0",
     "history": "^4.9.0",
+    "html-to-react": "^1.4.3",
     "jsdom": "^16.4.0",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
