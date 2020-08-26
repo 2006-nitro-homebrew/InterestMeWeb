@@ -1,56 +1,107 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { logout } from "../store/user";
+import { Menu } from "@material-ui/icons";
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>BOILERMAKER</h1>
-    <nav>
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Button,
+} from "@material-ui/core";
+
+const Navbar = ({ handleClick, isLoggedIn }) => (
+  // <div>
+  //   <h2>Offline Reader</h2>
+  //   <nav>
+  //     {isLoggedIn ? (
+  //       <div>
+  //         {/* The navbar will show these links after you log in */}
+  //         <Link to="/home">Home</Link>
+  //         <Link to="/readinglist">Reading List</Link>
+  //         <Link to="/interestMe">Interest Me</Link>
+  //         <a href="#" onClick={handleClick}>
+  //           Logout
+  //         </a>
+  //       </div>
+  //     ) : (
+  //       <div>
+  //         {/* The navbar will show these links before you log in */}
+  //         <Link to="/login">Login</Link>
+  //         <Link to="/signup">Sign Up</Link>
+  //       </div>
+  //     )}
+  //   </nav>
+  // </div>
+
+  <AppBar position="sticky">
+    <Toolbar>
+      <Link to={"/home"} style={{ textDecoration: "none", color: "#FFF" }}>
+        <Button color="inherit">Home</Button>
+      </Link>
       {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+        <div className="navButton">
+          <Link
+            to={"/readinglist"}
+            style={{ textDecoration: "none", color: "#FFF" }}
+          >
+            <Button color="inherit">Reading List</Button>
+          </Link>
+
+          <Link
+            to={"/interestMe"}
+            style={{ textDecoration: "none", color: "#FFF" }}
+          >
+            <Button color="inherit">Interest Me</Button>
+          </Link>
+          <Link
+            to={"/profile"}
+            style={{ textDecoration: "none", color: "#FFF" }}
+          >
+            <Button color="inherit">Profile</Button>
+          </Link>
+
+          <Button color="inherit">
+            <a
+              href="#"
+              onClick={handleClick}
+              style={{ textDecoration: "none", color: "#FFF" }}
+            >
+              Logout
+            </a>
+          </Button>
         </div>
       ) : (
         <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <Link to={"/login"} style={{ textDecoration: "none", color: "#FFF" }}>
+            <Button color="inherit">Login</Button>
+          </Link>
+          <Link
+            to={"/signup"}
+            style={{ textDecoration: "none", color: "#FFF" }}
+          >
+            <Button color="inherit">Sign Up</Button>
+          </Link>
         </div>
       )}
-    </nav>
-    <hr />
-  </div>
-)
+    </Toolbar>
+  </AppBar>
+);
 
-/**
- * CONTAINER
- */
-const mapState = state => {
+const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id
-  }
-}
+    isLoggedIn: !!state.user.email,
+  };
+};
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleClick() {
-      dispatch(logout())
-    }
-  }
-}
+      dispatch(logout());
+    },
+  };
+};
 
-export default connect(mapState, mapDispatch)(Navbar)
-
-/**
- * PROP TYPES
- */
-Navbar.propTypes = {
-  handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
-}
+export default connect(mapState, mapDispatch)(Navbar);
