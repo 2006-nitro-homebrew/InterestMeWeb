@@ -10,14 +10,13 @@ router.get('/pull', async (req, res, next) => {
     const ARTICLE_URL =
       'http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html'
     scrapeAll(ARTICLE_URL).then((result) => {
-    firebase.firestore()
-    .collection('users')
-    .doc('h6t7Md19adggNhvjHUc22LW6RGF2')
-    .collection('savedOffline')
-    .add({html:result})
-  
-  })
-    
+      firebase
+        .firestore()
+        .collection('users')
+        .doc('3Tf03o0fjjMLSmkWo8kB1aroc4e2')
+        .collection('savedOffline')
+        .add({html: result})
+    })
   } catch (error) {
     console.error(error)
   }
