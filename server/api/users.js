@@ -1,28 +1,23 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
 const {scrapeAll} = require('../scraper')
+const db = require('../db/index')
+const firebase = require('firebase')
 
 module.exports = router
-
-router.get('/', async (req, res, next) => {
-  try {
-    const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['id', 'email'],
-    })
-    res.json(users)
-  } catch (err) {
-    next(err)
-  }
-})
 
 router.get('/pull', async (req, res, next) => {
   try {
     const ARTICLE_URL =
       'http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html'
-    scrapeAll(ARTICLE_URL).then((result) => console.log(result))
+    scrapeAll(ARTICLE_URL).then((result) => {
+    firebase.firestore()
+    .collection('users')
+    .doc('h6t7Md19adggNhvjHUc22LW6RGF2')
+    .collection('savedOffline')
+    .add({html:result})
+  
+  })
+    
   } catch (error) {
     console.error(error)
   }

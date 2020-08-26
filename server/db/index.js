@@ -1,6 +1,20 @@
-const db = require('./db')
+const firebase = require('firebase')
+require("firebase/firestore");
+// import {firebaseConfig} from '../secrets'
+require('../../secrets')
+let firebaseConfig = {
+    apiKey: process.env.APIKEY,
+    authDomain: process.env.AUTHDOMAIN,
+    databaseURL: process.env.DATABASEURL,
+    projectId: process.env.PROJECTID,
+    storageBucket: process.env.STORAGEBUCKET,
+    messagingSenderId: process.env.MESSAGINGSENDERID,
+    appId: process.env.APPID,
+    measurementId: process.env.MEASUREMENTID,
+}
 
-// register models
-require('./models')
+firebase.initializeApp(firebaseConfig)
+let db = firebase.firestore()
 
-module.exports = db
+console.log(firebaseConfig)
+module.exports = {db}
