@@ -2,9 +2,11 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 // import PropTypes from "prop-types";
-import {Signup, Login, InterestMe, Home} from './components'
+import {Login, InterestMe, Home, Signup} from './components'
+
 import ReadingList from './components/ReadingList'
 import SingleArticle from './components/SingleArticle'
+import AddArticle from './components/AddArticle'
 
 export default class Routes extends React.Component {
   render() {
@@ -19,7 +21,7 @@ export default class Routes extends React.Component {
         <Route path="/signup" component={Signup} />
         <Route exact path="/readinglist" component={ReadingList} />
         <Route exact path="/readinglist/:articleId" component={SingleArticle} />
-
+        <Route exact path="/addarticle" component={AddArticle} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

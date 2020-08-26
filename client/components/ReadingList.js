@@ -30,8 +30,7 @@ export class ReadingList extends React.Component {
 
   render() {
     let allList = this.props.list
-    console.log(allList)
-    // this.props.addArticle('newuser')
+
     return (
       <div>
         <h3 id="title">Saved Reading List</h3>
@@ -72,7 +71,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getArticles: (uid) => dispatch(fetchArticles(uid)),
-    addArticle: (id) => dispatch(fetchAddArticle(id)),
+    // addArticle: (id) => dispatch(fetchAddArticle(id)),
   }
 }
 

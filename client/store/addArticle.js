@@ -14,14 +14,17 @@ export const addArticle = (newArticle) => {
 
 //Thunk creators
 //For when user saves an article and adds into the database
-export const fetchAddArticle = (userId) => {
+export const fetchAddArticle = (userId, url) => {
   //add articleurl as parameter later
   return async (dispatch) => {
     console.log('fetchaddarticle')
-    let data = await axios.get('./api/users/pull')
+    let {data} = await axios.post('/api/users/pull', {
+        userId,
+        url
+    })
     // console.log(data)
     console.log(data)
-    dispatch(data)
+    dispatch(addArticle(data))
     // scrapeAll("http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html").then((result) => console.log(result));
 
     // try {
