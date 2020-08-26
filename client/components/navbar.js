@@ -38,7 +38,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
 
   <AppBar position="sticky">
     <Toolbar>
-      <Link to="/home" style={{textDecoration: 'none', color: '#FFF'}}>
+      <Link to="/" style={{textDecoration: 'none', color: '#FFF'}}>
         <Button color="inherit">Home</Button>
       </Link>
       {isLoggedIn ? (
