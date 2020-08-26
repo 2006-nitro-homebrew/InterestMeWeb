@@ -56,8 +56,12 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           >
             <Button color="inherit">Interest Me</Button>
           </Link>
-          <Link to="/profile" style={{textDecoration: 'none', color: '#FFF'}}>
-            <Button color="inherit">Profile</Button>
+
+          <Link
+            to="/addarticle"
+            style={{textDecoration: 'none', color: '#FFF'}}
+          >
+            <Button color="inherit">Add Article</Button>
           </Link>
 
           <Button color="inherit">

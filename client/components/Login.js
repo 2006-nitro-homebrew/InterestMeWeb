@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {connect} from 'react-redux'
 import {auth} from '../store/user'
 
@@ -28,7 +28,7 @@ const Auth = props => {
       </form>
       {/* <a href="/auth/google">{displayName} with Google</a> */}
     </div>
-  )
+  );
 }
 
 const mapLogin = state => {
@@ -62,7 +62,9 @@ const mapDispatch = dispatch => {
 export const Login = connect(mapLogin, mapDispatch)(Auth)
 export const Signup = connect(mapSignup, mapDispatch)(Auth)
 
+
 // export default Login;
+
 
 // Login.propTypes = {
 //   name: PropTypes.string.isRequired,
