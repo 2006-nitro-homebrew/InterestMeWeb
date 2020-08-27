@@ -23,7 +23,7 @@ function Home() {
             Login
           </Button>
         </Link>
-        <div class="divider" />
+        <div className="divider" />
         <Link to="/signup" style={{ textDecoration: "none", color: "#FFF" }}>
           <Button
             className="welcome-button"
