@@ -21,10 +21,12 @@ self.addEventListener('activate', (event) => {
 })
 
 self.addEventListener('fetch', (event) => {
-  console.log('FETCH INTERCEPTED FOR:', event.request.url)
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request)
-    })
-  )
+  if (event.resquest.url.indexOf('firestore.googleapis.com' === -1)) {
+    console.log('FETCH INTERCEPTED FOR:', event.request.url)
+    event.respondWith(
+      caches.match(event.request).then((cachedResponse) => {
+        return cachedResponse || fetch(event.request)
+      })
+    )
+  }
 })

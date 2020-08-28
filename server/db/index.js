@@ -16,5 +16,12 @@ let firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 let db = firebase.firestore()
 
-console.log(firebaseConfig)
+db.enablePersistence().catch(err => {
+    if (err.code === 'failed-precondition') {
+        console.log('persistence failed')
+    } else if (err.code === 'unimplemented') {
+        console.log('persistence is not available')
+    }
+})
+
 module.exports = {db}
