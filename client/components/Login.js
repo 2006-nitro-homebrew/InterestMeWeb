@@ -61,14 +61,3 @@ const mapDispatch = dispatch => {
 
 export const Login = connect(mapLogin, mapDispatch)(Auth)
 export const Signup = connect(mapSignup, mapDispatch)(Auth)
-
-
-// export default Login;
-
-
-// Login.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   displayName: PropTypes.string.isRequired,
-//   handleSubmit: PropTypes.func.isRequired,
-//   error: PropTypes.object
-// }
