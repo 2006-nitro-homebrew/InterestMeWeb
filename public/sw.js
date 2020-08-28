@@ -21,10 +21,13 @@ self.addEventListener('activate', (event) => {
 })
 
 self.addEventListener('fetch', (event) => {
-  console.log('FETCH INTERCEPTED FOR:', event.request.url)
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request)
-    })
-  )
+  //Checking to see if the fetch request is to firestore. Since it is already being saved to IndexedDB, we don't need to cache data from firestore.
+  if (event.request.url.indexOf('firestore.googleapis.com' === -1)) {
+    console.log('FETCH INTERCEPTED FOR:', event.request.url)
+    event.respondWith(
+      caches.match(event.request).then((cachedResponse) => {
+        return cachedResponse || fetch(event.request)
+      })
+    )
+  }
 })
