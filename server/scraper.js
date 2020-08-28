@@ -14,7 +14,7 @@ async function scrapeAll(ARTICLE_URL) {
       console.log(res)
       const $ = cheerio.load(res.data)
       let article = $('body').html() //use article tag for those that have it
-      let title = $("title").text()
+      let title = $('head > title').text()
       let originalurl = ARTICLE_URL
       let url = (new URL(ARTICLE_URL)).hostname
       let hostname = (new URL(ARTICLE_URL)).hostname.split('.');

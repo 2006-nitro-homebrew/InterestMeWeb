@@ -15,7 +15,7 @@ router.post('/pull', async (req, res, next) => {
     scrapeAll(req.body.url).then((result) => {
       let savedResult = { content: result.content.article, styles: result.styles }
       let m = new Map();
-      const customweight = (result.content.htmlwords.length > 150) ? 0.35 : 0.6
+      const customweight = (result.content.htmlwords.length > 150) ? 0.3 : 0.6
       console.log(customweight)
       wordhash(result.content.htmlwords, customweight, m)
       wordhash(result.content.h1words, 6, m)
