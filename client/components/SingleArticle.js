@@ -4,11 +4,9 @@ import {fetchArticle} from '../store/singleArticle'
 import firebase from 'firebase'
 import HtmlToReactParser from 'html-to-react'
 
-export class SingleArticle extends React.Component {
-  // constructor() {
-  //   super();
-  // }
+import {Container, Paper} from '@material-ui/core'
 
+export class SingleArticle extends React.Component {
   async componentDidMount() {
     const articleId = this.props.match.params.articleId
     firebase.auth().onAuthStateChanged((user) => {
@@ -37,17 +35,21 @@ export class SingleArticle extends React.Component {
     // }
 
     return (
-      <div>
-        {html &&
-          html.styles.map((styleString) => {
-            return (
-              <style type="text/css" key={html.styles.indexOf(styleString)}>
-                {styleString.slice(1, styleString.length - 1)}
-              </style>
-            )
-          })}
-        {html && reactElement}
-      </div>
+      <Container>
+        <Paper style={{marginTop: '50px', marginBottom: '50px'}}>
+          <div>
+            {html &&
+              html.styles.map((styleString) => {
+                return (
+                  <style type="text/css" key={html.styles.indexOf(styleString)}>
+                    {styleString.slice(1, styleString.length - 1)}
+                  </style>
+                )
+              })}
+            {html && reactElement}
+          </div>
+        </Paper>
+      </Container>
     )
   }
 }
