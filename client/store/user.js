@@ -39,14 +39,11 @@ export const auth = (email, password, method) => async (dispatch) => {
                 firebase.firestore().collection("users").doc(uid).set({
                     email,uid
                 })
-            })
-            .catch( error => {
-                dispatch(getUser({ error: error.message }))
+                return true
             })
             .then((bool) =>{
                 if(!bool) return
                 try {
-                    // console.log(uid)
                     db.collection("users").doc(uid)
                         .get()
                         .then((doc) => {
