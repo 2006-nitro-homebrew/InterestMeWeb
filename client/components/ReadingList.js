@@ -123,7 +123,13 @@ export class ReadingList extends React.Component {
                 return (
                   <TableRow key={doc.id}>
                     <TableCell>
-                      <Link to={`../readinglist/${doc.id}`}>{doc.title}</Link>
+                      <Link to={`../readinglist/${doc.id}`}>
+                        {doc.title.length > 50 ? (
+                          <p>{doc.title.slice(0, 50) + '...'}</p>
+                        ) : (
+                          <p>{doc.title}</p>
+                        )}
+                      </Link>
                     </TableCell>
 
                     <TableCell>
