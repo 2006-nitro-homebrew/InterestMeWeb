@@ -20,9 +20,10 @@ export class ReadingList extends React.Component {
   }
 
   renderTableHeader() {
-    let header = Object.keys(this.props.list[0]).filter(
-      (key) => key != 'content'
-    )
+    // let header = Object.keys(this.props.list[0]).filter(
+    //   (key) => (key == 'title' || key == 'url')
+    // )
+    let header = ['Saved List','Original Source','Keywords']
     return header.map((key, index) => {
       return <th key={index}>{key.toUpperCase()}</th>
     })
@@ -45,10 +46,10 @@ export class ReadingList extends React.Component {
               allList.map((doc) => (
                 <tr key={doc.id}>
                   <td>
-                    <Link to={`../readinglist/${doc.id}`}>{doc.id}</Link>
+                    <Link to={`../readinglist/${doc.id}`}>{doc.title}</Link>
                   </td>
-                  <td>{doc.name}</td>
-                  <td>{doc.source}</td>
+                  <td><a href={doc.originalurl}>{doc.url}</a></td>
+                  {(doc.keywords)?<td>{doc.keywords.join(', ')}</td>:console.log()}
                 </tr>
               ))
             ) : (
