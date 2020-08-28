@@ -1,6 +1,5 @@
 body {
   font-family: sans-serif;
-  background: url('background.png')
 }
 
 a {
@@ -21,13 +20,13 @@ form div {
   display: inline-block;
 }
 
-.divider{
-  width:1.6em;
-  height:auto;
-  display:inline-block;
+.divider {
+  width: 1.6em;
+  height: auto;
+  display: inline-block;
 }
 
-.welcome-all{
+.welcome-all {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -40,5 +39,5 @@ form div {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  background: url('./background.jpg');
+  background: url('./background1.jpg');
 }

@@ -9,7 +9,7 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  Button
+  Button,
 } from '@material-ui/core'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
@@ -88,17 +88,17 @@ const Navbar = ({handleClick, isLoggedIn}) => (
   </AppBar>
 )
 
-const mapState = state => {
+const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.email
+    isLoggedIn: !!state.user.email,
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleClick() {
       dispatch(logout())
-    }
+    },
   }
 }
 
