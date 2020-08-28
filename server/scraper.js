@@ -14,6 +14,7 @@ async function scrapeAll(ARTICLE_URL) {
       console.log(res)
       const $ = cheerio.load(res.data)
       let article = $('body').html() //use article tag for those that have it
+
       let title = $('head > title').text()
       let originalurl = ARTICLE_URL
       let url = (new URL(ARTICLE_URL)).hostname
@@ -36,6 +37,7 @@ async function scrapeAll(ARTICLE_URL) {
 
       let output = {article, title, htmlwords, h1words, h2words, h3words, h4words, h5words, h6words, hostname, originalurl, pathname, url}
       return output
+
     } catch (err) {
       console.error(err)
     }
@@ -85,4 +87,4 @@ module.exports = { scrapeAll }
 // replace console.log with function to write it to database
 // scrapeAll(ARTICLE_URL).then((result) => console.log(result));
 
-// "proxy": "http://63.160.42.145:3128@rr150159_gmail_com:FRpjcMbKYb",
+
