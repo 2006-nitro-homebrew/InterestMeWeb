@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import {fetchArticles} from '../store/articles'
 import {Link} from 'react-router-dom'
 import firebase from 'firebase'
+import {ThemeProvider} from '@material-ui/core/styles'
+import {theme} from '../theme'
 
 import {
   Container,
@@ -14,6 +16,7 @@ import {
   Typography,
   Paper,
   IconButton,
+  Card,
 } from '@material-ui/core'
 
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -99,65 +102,89 @@ export class ReadingList extends React.Component {
       //     </tbody>
       //   </table>
       // </div>
+      <ThemeProvider theme={theme}>
+        <Container>
+          <Paper style={{padding: '15px', marginTop: '50px'}} elevation={3}>
+            <Card
+              align="center"
+              elevation={3}
+              style={{
+                paddingTop: '10px',
+                marginTop: '-40px',
+                borderRadius: '3px',
+                backgroundColor: '#424242',
+              }}
+            >
+              <Typography
+                component="h2"
+                variant="h6"
+                gutterBottom
+                style={{color: '#fafafa'}}
+              >
+                Saved Reading List
+              </Typography>
+            </Card>
+            {/* {allList.length === 0 && <p>No Articles Saved</p>} */}
 
-      <Container>
-        <Paper style={{padding: '10px', marginTop: '50px'}} elevation={3}>
-          <Typography component="h2" variant="h5" color="primary" gutterBottom>
-            Saved Reading List
-          </Typography>
+            <Table size="small" id="readinglist">
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <h4>Saved Articles</h4>
+                  </TableCell>
+                  <TableCell>
+                    <h4>Source</h4>
+                  </TableCell>
+                  <TableCell>
+                    <h4>Keywords</h4>
+                  </TableCell>
+                  <TableCell>
+                    <h4>Remove Article</h4>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
 
-          {/* {allList.length === 0 && <p>No Articles Saved</p>} */}
+              <TableBody>
+                {allList.map((doc) => {
+                  return (
+                    <TableRow key={doc.id}>
+                      <TableCell>
+                        <Link to={`../readinglist/${doc.id}`}>
+                          {doc.title.length > 50 ? (
+                            <p>{doc.title.slice(0, 50) + '...'}</p>
+                          ) : (
+                            <p>{doc.title}</p>
+                          )}
+                        </Link>
+                      </TableCell>
 
-          <Table size="small" id="readinglist">
-            <TableHead>
-              <TableRow>
-                <TableCell>Saved Articles</TableCell>
-                <TableCell>Source</TableCell>
-                <TableCell>Keywords</TableCell>
-                <TableCell>Remove Article</TableCell>
-              </TableRow>
-            </TableHead>
+                      <TableCell>
+                        <a href={doc.originalurl}>{doc.url}</a>
+                      </TableCell>
 
-            <TableBody>
-              {allList.map((doc) => {
-                return (
-                  <TableRow key={doc.id}>
-                    <TableCell>
-                      <Link to={`../readinglist/${doc.id}`}>
-                        {doc.title.length > 50 ? (
-                          <p>{doc.title.slice(0, 50) + '...'}</p>
+                      <TableCell>
+                        {doc.keywords ? (
+                          <p>{doc.keywords.join(', ')}</p>
                         ) : (
-                          <p>{doc.title}</p>
+                          <p>No Keywords Found</p>
                         )}
-                      </Link>
-                    </TableCell>
+                      </TableCell>
 
-                    <TableCell>
-                      <a href={doc.originalurl}>{doc.url}</a>
-                    </TableCell>
-
-                    <TableCell>
-                      {doc.keywords ? (
-                        <p>{doc.keywords.join(', ')}</p>
-                      ) : (
-                        <p>No Keywords Found</p>
-                      )}
-                    </TableCell>
-
-                    <TableCell>
-                      <IconButton
-                        onClick={(event) => this.handleClick(event, doc.id)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                )
-              })}
-            </TableBody>
-          </Table>
-        </Paper>
-      </Container>
+                      <TableCell align="center">
+                        <IconButton
+                          onClick={(event) => this.handleClick(event, doc.id)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </Paper>
+        </Container>
+      </ThemeProvider>
     )
   }
 }
