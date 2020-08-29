@@ -70,6 +70,7 @@ const Auth = (props) => {
         <Card
           className={classes.paper}
           style={{padding: '50px', marginTop: '100px'}}
+          elevation={5}
         >
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">

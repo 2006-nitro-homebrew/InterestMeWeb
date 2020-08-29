@@ -1,11 +1,6 @@
 body {
   font-family: sans-serif;
-  background: url('./news2.jpg');
-  /* background: url('background-light.jpg') no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; */
+  background: url('./paper.jpg');
 }
 
 a {
@@ -41,9 +36,9 @@ form div {
   font-size: calc(10px + 2vmin);
   color: white;
   text-align: center;
-  -webkit-background-size: cover;
+  /* -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
-  background: url('./background1.jpg');
+  background-size: cover; */
+  background: url('./background.jpg');
 }

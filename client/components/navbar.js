@@ -2,17 +2,10 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {logout} from '../store/user'
-import {Menu} from '@material-ui/icons'
 import {ThemeProvider} from '@material-ui/core/styles'
 import {theme} from '../theme'
 
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  Button,
-} from '@material-ui/core'
+import {AppBar, Toolbar, Button} from '@material-ui/core'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   // <div>
