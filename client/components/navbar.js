@@ -7,6 +7,8 @@ import {theme} from '../theme'
 
 import {AppBar, Toolbar, Button} from '@material-ui/core'
 
+let fontStyle = {textDecoration: 'none', color: '#FFF'}
+
 const Navbar = ({handleClick, isLoggedIn}) => (
   // <div>
   //   <h2>Offline Reader</h2>
@@ -30,51 +32,39 @@ const Navbar = ({handleClick, isLoggedIn}) => (
   //     )}
   //   </nav>
   // </div>
+
   <ThemeProvider theme={theme}>
     <AppBar position="sticky">
       <Toolbar>
-        <Link to="/" style={{textDecoration: 'none', color: '#FFF'}}>
+        <Link to="/" style={fontStyle}>
           <Button color="inherit">Home</Button>
         </Link>
         {isLoggedIn ? (
           <div className="navButton">
-            <Link
-              to="/readinglist"
-              style={{textDecoration: 'none', color: '#FFF'}}
-            >
+            <Link to="/readinglist" style={fontStyle}>
               <Button color="inherit">Reading List</Button>
             </Link>
 
-            <Link
-              to="/interestMe"
-              style={{textDecoration: 'none', color: '#FFF'}}
-            >
+            <Link to="/interestMe" style={fontStyle}>
               <Button color="inherit">Interest Me</Button>
             </Link>
 
-            <Link
-              to="/addarticle"
-              style={{textDecoration: 'none', color: '#FFF'}}
-            >
+            <Link to="/addarticle" style={fontStyle}>
               <Button color="inherit">Add Article</Button>
             </Link>
 
             <Button color="inherit">
-              <a
-                href="#"
-                onClick={handleClick}
-                style={{textDecoration: 'none', color: '#FFF'}}
-              >
+              <a href="#" onClick={handleClick} style={fontStyle}>
                 Logout
               </a>
             </Button>
           </div>
         ) : (
           <div>
-            <Link to="/login" style={{textDecoration: 'none', color: '#FFF'}}>
+            <Link to="/login" style={fontStyle}>
               <Button color="inherit">Login</Button>
             </Link>
-            <Link to="/signup" style={{textDecoration: 'none', color: '#FFF'}}>
+            <Link to="/signup" style={fontStyle}>
               <Button color="inherit">Sign Up</Button>
             </Link>
           </div>

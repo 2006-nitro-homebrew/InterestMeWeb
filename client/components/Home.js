@@ -3,23 +3,73 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {ThemeProvider} from '@material-ui/core/styles'
 import {theme} from '../theme'
-import {Paper, Button} from '@material-ui/core'
+import {Paper, Button, Grid, Card} from '@material-ui/core'
 import {AddArticle} from './index'
+import {makeStyles} from '@material-ui/core/styles'
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+  cardStyle: {},
+}))
 
 const Home = ({isLoggedIn}) => {
+  const classes = useStyles()
+
   return (
     <ThemeProvider theme={theme}>
       {isLoggedIn && (
         <div className="welcome-user">
-          <Paper
-            style={{
-              marginTop: '40px',
-              padding: '15px',
-            }}
-          >
-            <h1>Welcome back!</h1>
-            <AddArticle />
-          </Paper>
+          <Grid container spacing={3}>
+            <Grid item xs={1} />
+            <Grid item xs={10}>
+              <Paper
+                style={{
+                  marginTop: '30px',
+                  padding: '15px',
+                }}
+              >
+                <h1 style={{marginLeft: '30px'}}>Welcome back!</h1>
+                <AddArticle />
+
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <Paper
+                      className={classes.paper}
+                      elevation={0}
+                      style={{marginLeft: '20px'}}
+                    >
+                      <Link to="/readinglist">
+                        <Button fullWidth variant="contained" color="secondary">
+                          Reading List
+                        </Button>
+                      </Link>
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Paper
+                      className={classes.paper}
+                      elevation={0}
+                      style={{marginRight: '20px'}}
+                    >
+                      <Link to="/interestMe">
+                        <Button fullWidth variant="contained" color="secondary">
+                          Interest Me
+                        </Button>
+                      </Link>
+                    </Paper>
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
+            <Grid item xs={1} />
+          </Grid>
         </div>
       )}
 
@@ -67,7 +117,7 @@ const Home = ({isLoggedIn}) => {
               <p>Use the Browser Extension to save your article.</p>
               <p>View your favorite articles even if you are offline!</p>
               <p>
-                Enjoy countless recommendations based on your saved articles.{' '}
+                Enjoy countless recommendations based on your saved articles.
               </p>
             </div>
           </Paper>
