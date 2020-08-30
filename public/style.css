@@ -33,12 +33,22 @@ form div {
   flex-direction: column;
   align-items: center;
   justify-content: top;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(3px + 2vmin);
   color: white;
   text-align: center;
   /* -webkit-background-size: cover;
   -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; */
+  -o-background-size: cover; */
   background: url('./background.jpg');
+}
+
+.welcome-user {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: top;
+  color: white;
+  background: url('./background-user.jpg');
+  background-size: cover;
 }

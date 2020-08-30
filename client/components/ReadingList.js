@@ -13,6 +13,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  TableContainer,
   Typography,
   Paper,
   IconButton,
@@ -102,6 +103,7 @@ export class ReadingList extends React.Component {
       //     </tbody>
       //   </table>
       // </div>
+
       <ThemeProvider theme={theme}>
         <Container>
           <Paper style={{padding: '15px', marginTop: '50px'}} elevation={3}>
@@ -125,63 +127,68 @@ export class ReadingList extends React.Component {
               </Typography>
             </Card>
             {/* {allList.length === 0 && <p>No Articles Saved</p>} */}
+            <TableContainer
+              component={Paper}
+              elevation={0}
+              style={{marginTop: '10px'}}
+            >
+              <Table size="small" id="readinglist">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      <h4>Saved Articles</h4>
+                    </TableCell>
+                    <TableCell>
+                      <h4>Source</h4>
+                    </TableCell>
+                    <TableCell>
+                      <h4>Keywords</h4>
+                    </TableCell>
+                    <TableCell>
+                      <h4>Remove Article</h4>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
 
-            <Table size="small" id="readinglist">
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    <h4>Saved Articles</h4>
-                  </TableCell>
-                  <TableCell>
-                    <h4>Source</h4>
-                  </TableCell>
-                  <TableCell>
-                    <h4>Keywords</h4>
-                  </TableCell>
-                  <TableCell>
-                    <h4>Remove Article</h4>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
+                <TableBody>
+                  {allList.map((doc) => {
+                    return (
+                      <TableRow key={doc.id}>
+                        <TableCell>
+                          <Link to={`../readinglist/${doc.id}`}>
+                            {doc.title.length > 50 ? (
+                              <p>{doc.title.slice(0, 50) + '...'}</p>
+                            ) : (
+                              <p>{doc.title}</p>
+                            )}
+                          </Link>
+                        </TableCell>
 
-              <TableBody>
-                {allList.map((doc) => {
-                  return (
-                    <TableRow key={doc.id}>
-                      <TableCell>
-                        <Link to={`../readinglist/${doc.id}`}>
-                          {doc.title.length > 50 ? (
-                            <p>{doc.title.slice(0, 50) + '...'}</p>
+                        <TableCell>
+                          <a href={doc.originalurl}>{doc.url}</a>
+                        </TableCell>
+
+                        <TableCell>
+                          {doc.keywords ? (
+                            <p>{doc.keywords.join(', ')}</p>
                           ) : (
-                            <p>{doc.title}</p>
+                            <p>No Keywords Found</p>
                           )}
-                        </Link>
-                      </TableCell>
+                        </TableCell>
 
-                      <TableCell>
-                        <a href={doc.originalurl}>{doc.url}</a>
-                      </TableCell>
-
-                      <TableCell>
-                        {doc.keywords ? (
-                          <p>{doc.keywords.join(', ')}</p>
-                        ) : (
-                          <p>No Keywords Found</p>
-                        )}
-                      </TableCell>
-
-                      <TableCell align="center">
-                        <IconButton
-                          onClick={(event) => this.handleClick(event, doc.id)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  )
-                })}
-              </TableBody>
-            </Table>
+                        <TableCell align="center">
+                          <IconButton
+                            onClick={(event) => this.handleClick(event, doc.id)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    )
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Paper>
         </Container>
       </ThemeProvider>
@@ -199,7 +206,6 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getArticles: (uid) => dispatch(fetchArticles(uid)),
-    // addArticle: (id) => dispatch(fetchAddArticle(id)),
   }
 }
 

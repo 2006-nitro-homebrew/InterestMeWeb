@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {auth} from '../store/user'
+import {Link} from 'react-router-dom'
 import {ThemeProvider} from '@material-ui/core/styles'
 import {theme} from '../theme'
 import {
@@ -9,7 +10,6 @@ import {
   Button,
   CssBaseline,
   TextField,
-  Link,
   Grid,
   Card,
 } from '@material-ui/core'
@@ -122,7 +122,7 @@ const Auth = (props) => {
 
               <Grid container>
                 <Grid item>
-                  <Link href="/signup">{"Don't have an account? Sign Up"}</Link>
+                  <Link to="../signup">{"Don't have an account? Sign Up"}</Link>
                 </Grid>
               </Grid>
             </form>
