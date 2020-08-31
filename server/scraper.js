@@ -20,20 +20,14 @@ async function scrapeAll(ARTICLE_URL) {
       let url = (new URL(ARTICLE_URL)).hostname
       let hostname = (new URL(ARTICLE_URL)).hostname.split('.');
       let pathname = (new URL(ARTICLE_URL)).pathname.split(/[^\w\s]|_/g);
-      let htmlwords = $("div").text().replace(/[^\w\s]|_/g, "")
-        .replace(/\s+/g, " ").split(" ");
-      let h1words = $("h1").text().replace(/[^\w\s]|_/g, "")
-        .replace(/\s+/g, " ").split(" ");
-      let h2words = $("h2").text().replace(/[^\w\s]|_/g, "")
-        .replace(/\s+/g, " ").split(" ");
-      let h3words = $("h3").text().replace(/[^\w\s]|_/g, "")
-        .replace(/\s+/g, " ").split(" ");
-      let h4words = $("h4").text().replace(/[^\w\s]|_/g, "")
-        .replace(/\s+/g, " ").split(" ");
-      let h5words = $("h5").text().replace(/[^\w\s]|_/g, "")
-        .replace(/\s+/g, " ").split(" ");
-      let h6words = $("h6").text().replace(/[^\w\s]|_/g, "")
-        .replace(/\s+/g, " ").split(" ");
+      let htmlwords = $("body").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' ').split(" ");
+      console.log($("body").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' '))
+      let h1words = $("h1").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' ').split(" ");
+      let h2words = $("h2").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' ').split(" ");
+      let h3words = $("h3").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' ').split(" ");
+      let h4words = $("h4").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' ').split(" ");
+      let h5words = $("h5").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' ').split(" ");
+      let h6words = $("h6").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' ').split(" ");
 
       let output = {article, title, htmlwords, h1words, h2words, h3words, h4words, h5words, h6words, hostname, originalurl, pathname, url}
       return output

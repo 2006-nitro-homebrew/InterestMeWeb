@@ -7,10 +7,11 @@ import articles from './articles'
 import article from './singleArticle'
 import addArticle from './addArticle'
 import {loadState, saveState} from './storage'
+import recs from './recs'
 
 const persistedState = loadState()
 
-const reducer = combineReducers({user, articles, article, addArticle}) //make sure to put individual reducers here
+const reducer = combineReducers({user, articles, article, addArticle,recs}) //make sure to put individual reducers here
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
