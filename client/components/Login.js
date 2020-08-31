@@ -1,14 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {auth} from '../store/user'
-
+import {Link} from 'react-router-dom'
+import {ThemeProvider} from '@material-ui/core/styles'
+import {theme} from '../theme'
 import {
   Container,
   Typography,
   Button,
   CssBaseline,
   TextField,
-  Link,
   Grid,
   Card,
 } from '@material-ui/core'
@@ -62,69 +63,73 @@ const Auth = (props) => {
     //   </form>
     //   {/* <a href="/auth/google">{displayName} with Google</a> */}
     // </div>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
 
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-
-      <Card
-        className={classes.paper}
-        style={{padding: '50px', marginTop: '100px'}}
-      >
-        <div className={classes.paper}>
-          <Typography component="h1" variant="h5">
-            {displayName}
-          </Typography>
-
-          <form
-            className={classes.form}
-            noValidate
-            onSubmit={handleSubmit}
-            name={name}
-          >
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              style={{marginLeft: 15}}
-            >
+        <Card
+          className={classes.paper}
+          style={{padding: '50px', marginTop: '100px'}}
+          elevation={5}
+        >
+          <div className={classes.paper}>
+            <Typography component="h1" variant="h5">
               {displayName}
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link to="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+            </Typography>
+
+            <form
+              className={classes.form}
+              noValidate
+              onSubmit={handleSubmit}
+              name={name}
+            >
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                style={{marginLeft: 15}}
+              >
+                {displayName}
+              </Button>
+
+              {/* {error && <div>{error}</div>}
+            {error && error.response && <div> {error.response.data} </div>} */}
+
+              <Grid container>
+                <Grid item>
+                  <Link to="../signup">{"Don't have an account? Sign Up"}</Link>
+                </Grid>
               </Grid>
-            </Grid>
-          </form>
-        </div>
-      </Card>
-    </Container>
+            </form>
+          </div>
+        </Card>
+      </Container>
+    </ThemeProvider>
   )
 }
 
@@ -158,14 +163,3 @@ const mapDispatch = (dispatch) => {
 
 export const Login = connect(mapLogin, mapDispatch)(Auth)
 export const Signup = connect(mapSignup, mapDispatch)(Auth)
-
-
-// export default Login;
-
-// Login.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   displayName: PropTypes.string.isRequired,
-//   handleSubmit: PropTypes.func.isRequired,
-//   error: PropTypes.object
-// }
-
