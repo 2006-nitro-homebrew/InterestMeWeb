@@ -60,7 +60,7 @@ router.post('/pull', async (req, res, next) => {
           originalurl: result.content.originalurl, keywords, random
         })
     })
-    // res.send(200)
+    res.send(200)
     // htmlwords: result.content.htmlwords,
           // h1words: result.content.h1words, h2words: result.content.h2words, h3words: result.content.h3words,
           // h4words: result.content.h4words, h5words: result.content.h5words, h6words: result.content.h6words,
