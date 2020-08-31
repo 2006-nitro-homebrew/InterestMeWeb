@@ -3,8 +3,10 @@ const resourcesToPrecache = [
   '/',
   'index.html',
   'style.css',
-  'background1.jpg',
-  'news2.jpg',
+  'background.jpg',
+  'background-user.jpg',
+  'paper.jpg',
+  'icon.png',
 ]
 
 self.addEventListener('install', (event) => {
