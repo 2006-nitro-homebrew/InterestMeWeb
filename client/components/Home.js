@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {ThemeProvider} from '@material-ui/core/styles'
 import {theme} from '../theme'
-import {Paper, Button, Grid, Card} from '@material-ui/core'
+import {Paper, Button, Grid, Typography} from '@material-ui/core'
 import {AddArticle} from './index'
 import {makeStyles} from '@material-ui/core/styles'
 
@@ -35,10 +35,18 @@ const Home = ({isLoggedIn}) => {
                   padding: '15px',
                 }}
               >
-                <h1 style={{marginLeft: '30px'}}>Welcome back!</h1>
+                <Typography
+                  variant="h4"
+                  style={{
+                    marginLeft: '30px',
+                    marginTop: '10px',
+                    fontWeight: 200,
+                  }}
+                >
+                  Welcome back!
+                </Typography>
                 <AddArticle />
-
-                <Grid container spacing={1}>
+                <Grid container>
                   <Grid item xs={6}>
                     <Paper
                       className={classes.paper}
@@ -46,7 +54,7 @@ const Home = ({isLoggedIn}) => {
                       style={{marginLeft: '20px'}}
                     >
                       <Link to="/readinglist">
-                        <Button fullWidth variant="contained" color="secondary">
+                        <Button fullWidth variant="contained">
                           Reading List
                         </Button>
                       </Link>
@@ -59,7 +67,7 @@ const Home = ({isLoggedIn}) => {
                       style={{marginRight: '20px'}}
                     >
                       <Link to="/interestMe">
-                        <Button fullWidth variant="contained" color="secondary">
+                        <Button fullWidth variant="contained">
                           Interest Me
                         </Button>
                       </Link>
@@ -83,10 +91,15 @@ const Home = ({isLoggedIn}) => {
               backgroundColor: 'rgba(255, 255, 255, 0.85)',
             }}
           >
-            <div>
-              <h1>Welcome to InterestMe</h1>
-              <h4>The best way to browse and save your favorite articles</h4>
-            </div>
+            <Typography
+              variant="h3"
+              style={{fontWeight: 350, paddingTop: '20px'}}
+            >
+              Welcome to InterestMe
+            </Typography>
+            <Typography variant="h6" style={{padding: '20px'}}>
+              The best way to browse and save your favorite articles
+            </Typography>
 
             <div>
               <Link to="/login" style={{textDecoration: 'none', color: '#FFF'}}>
@@ -114,11 +127,13 @@ const Home = ({isLoggedIn}) => {
             </div>
 
             <div className="welcome-description-container">
-              <p>Use the Browser Extension to save your article.</p>
-              <p>View your favorite articles even if you are offline!</p>
-              <p>
-                Enjoy countless recommendations based on your saved articles.
-              </p>
+              <Typography variant="h6" style={{fontWeight: 350}}>
+                <p>Use the Browser Extension to save your article.</p>
+                <p>View your favorite articles even if you are offline!</p>
+                <p>
+                  Enjoy countless recommendations based on your saved articles.
+                </p>
+              </Typography>
             </div>
           </Paper>
         </div>

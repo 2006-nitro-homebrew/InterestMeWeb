@@ -121,7 +121,7 @@ export class ReadingList extends React.Component {
                 component="h2"
                 variant="h6"
                 gutterBottom
-                style={{color: '#fafafa'}}
+                style={{color: '#fafafa', fontWeight: 200}}
               >
                 Saved Reading List
               </Typography>
@@ -133,19 +133,23 @@ export class ReadingList extends React.Component {
               style={{marginTop: '10px'}}
             >
               <Table size="small" id="readinglist">
-                <TableHead>
+                <TableHead style={{backgroundColor: '#f5f5f5'}}>
                   <TableRow>
                     <TableCell>
-                      <h4>Saved Articles</h4>
+                      <Typography style={{fontWeight: 700}}>
+                        SAVED ARTICLES
+                      </Typography>
                     </TableCell>
                     <TableCell>
-                      <h4>Source</h4>
+                      <Typography style={{fontWeight: 700}}>SOURCE</Typography>
                     </TableCell>
                     <TableCell>
-                      <h4>Keywords</h4>
+                      <Typography style={{fontWeight: 700}}>
+                        KEYWORDS
+                      </Typography>
                     </TableCell>
                     <TableCell>
-                      <h4>Remove Article</h4>
+                      <Typography style={{fontWeight: 700}}>REMOVE</Typography>
                     </TableCell>
                   </TableRow>
                 </TableHead>
