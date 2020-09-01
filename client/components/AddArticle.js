@@ -4,6 +4,7 @@ import {fetchAddArticle} from '../store/addArticle'
 import firebase from 'firebase'
 import {ThemeProvider} from '@material-ui/core/styles'
 import {theme} from '../theme'
+import MuiAlert from '@material-ui/lab/Alert'
 
 import {
   Container,
@@ -13,6 +14,10 @@ import {
   TextField,
 } from '@material-ui/core'
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />
+}
+
 class AddArticle extends React.Component {
   constructor() {
     super()
@@ -21,9 +26,7 @@ class AddArticle extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    // const formName = evt.target.name
-    // const email = evt.target.email.value
-    // const password = evt.target.password.value
+
     const url = evt.target.url.value
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -35,29 +38,21 @@ class AddArticle extends React.Component {
   }
 
   render() {
+    // console.log('STATUS ADDING -->', this.props.addArticle)
+
     // passes user id and article url to the thunk. modify the thunk to accept both arguments. pull user id using
     // oncall Auth (check readingList) -- pulls ID and task that in
     // pull corresponding documents from here
     return (
-      //   <div>
-      //     <h3>
-      //       Please wait up to 2 minutes for content to show up in Reading List
-      //     </h3>
-      //     <form onSubmit={this.handleSubmit} name={name}>
-      //       <div>
-      //         <label htmlFor="url">
-      //           <small>URL</small>
-      //         </label>
-      //         <input name="url" type="url" />
-      //       </div>
-      //       <div>
-      //         <button type="submit">Add</button>
-      //       </div>
-      //     </form>
-      //   </div>
-
       <ThemeProvider theme={theme}>
         <Container>
+          {this.props.addArticle === 'SUCCESS' && (
+            <Alert severity="success">Article successfully added!</Alert>
+          )}
+          {this.props.addArticle === 'ERROR' && (
+            <Alert severity="error">Failed to add article</Alert>
+          )}
+
           <Paper style={{padding: '15px', marginTop: '40px'}} elevation={0}>
             <Typography component="h2" variant="h5" gutterBottom>
               Add Article
@@ -92,7 +87,8 @@ class AddArticle extends React.Component {
 }
 
 const mapState = (state) => {
-  return {article: state.article}
+  // return {article: state.article}
+  return {addArticle: state.addArticle}
 }
 
 const mapDispatch = (dispatch) => {
