@@ -9,29 +9,8 @@ import {AppBar, Toolbar, Button} from '@material-ui/core'
 
 let fontStyle = {textDecoration: 'none', color: '#FFF'}
 
+//Navbar will display accordingly whether user is logged in or not
 const Navbar = ({handleClick, isLoggedIn}) => (
-  // <div>
-  //   <h2>Offline Reader</h2>
-  //   <nav>
-  //     {isLoggedIn ? (
-  //       <div>
-  //         {/* The navbar will show these links after you log in */}
-  //         <Link to="/home">Home</Link>
-  //         <Link to="/readinglist">Reading List</Link>
-  //         <Link to="/interestMe">Interest Me</Link>
-  //         <a href="#" onClick={handleClick}>
-  //           Logout
-  //         </a>
-  //       </div>
-  //     ) : (
-  //       <div>
-  //         {/* The navbar will show these links before you log in */}
-  //         <Link to="/login">Login</Link>
-  //         <Link to="/signup">Sign Up</Link>
-  //       </div>
-  //     )}
-  //   </nav>
-  // </div>
 
   <ThemeProvider theme={theme}>
     <AppBar position="sticky">

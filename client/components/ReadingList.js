@@ -28,6 +28,7 @@ export class ReadingList extends React.Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
+  //Component will render articles from the redux store based on the user id passed in
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -38,6 +39,7 @@ export class ReadingList extends React.Component {
     })
   }
 
+  //Delete the saved article based on the user that is logged in firestore
   handleClick(event, id) {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -54,55 +56,10 @@ export class ReadingList extends React.Component {
     })
   }
 
-  renderTableHeader() {
-    let header = ['Saved List', 'Original Source', 'Keywords', 'Remove Article']
-    return header.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>
-    })
-  }
-
   render() {
     let allList = this.props.list
 
     return (
-      // <div>
-      //   <h2 id="title">Saved Reading List</h2>
-      //   {allList.length == 0 ? <h2>Nothing Saved</h2> : console.log()}
-      //   <table id="readinglist">
-      //     <tbody>
-      //       {allList.length > 0 ? (
-      //         <tr>{this.renderTableHeader()}</tr>
-      //       ) : (
-      //         console.log()
-      //       )}
-      //       {allList.length > 0
-      //         ? allList.map((doc) => (
-      //             <tr key={doc.id}>
-      //               <td>
-      //                 <Link to={`../readinglist/${doc.id}`}>{doc.title}</Link>
-      //               </td>
-      //               <td>
-      //                 <a href={doc.originalurl}>{doc.url}</a>
-      //               </td>
-      //               {doc.keywords ? (
-      //                 <td>{doc.keywords.join(', ')}</td>
-      //               ) : (
-      //                 <td>No Keywords Found</td>
-      //               )}
-      //               <td>
-      //                 <button
-      //                   type="button"
-      //                   onClick={(event) => this.handleClick(event, doc.id)}
-      //                 >
-      //                   Remove
-      //                 </button>
-      //               </td>
-      //             </tr>
-      //           ))
-      //         : console.log()}
-      //     </tbody>
-      //   </table>
-      // </div>
 
       <ThemeProvider theme={theme}>
         <Container>
@@ -126,7 +83,6 @@ export class ReadingList extends React.Component {
                 Saved Reading List
               </Typography>
             </Card>
-            {/* {allList.length === 0 && <p>No Articles Saved</p>} */}
             <TableContainer
               component={Paper}
               elevation={0}

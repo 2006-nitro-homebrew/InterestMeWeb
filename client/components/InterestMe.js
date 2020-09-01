@@ -31,35 +31,15 @@ class InterestMe extends React.Component {
   }
 
   componentDidMount() {
+    // random variable used for pulling a random articles in recommendations
+    // used so recommendation list won't show the same articles upon refresh
     let random = Math.floor(Math.random() * Math.floor(150))
-    console.log(random)
-    // firebase.auth().onAuthStateChanged((user) => {
-    //     if (user) {
-    //         firebase
-    //         .firestore()
-    //         .collection('users')
-    //         .doc(user.uid)
-    //         .collection('savedOffline')
-    //         .where("random", '<', random)
-    //         // .orderBy("")
-    //         .limit(1)
-    //         .get()
-    //         .then(article => {
-    //             console.log(article.exists)
-    //             if (!article.exists) return;
-    //             let data = article.data()
-    //             console.log(data)
-    //         })
-    // this.props.getArticles(user.uid)
-    // this.props.getRecs('trump', 'white', 'house')
-    //     } else {
-    //         console.log()
-    //     }
-    // })
     this.props.getRecs('trump', 'white', 'house')
   }
 
   handleClick(event, id) {
+      //if clicked, will get the current user on the Auth object and access the firestore DB accordingly
+      // delete the article upon user ID >> collection >> document ID
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         firebase
@@ -75,29 +55,10 @@ class InterestMe extends React.Component {
     })
   }
 
-  //   renderTableHeader() {
-  //     let header = ['Saved List', 'Original Source', 'Keywords', 'Remove Article']
-  //     return header.map((key, index) => {
-  //       return <th key={index}>{key.toUpperCase()}</th>
-  //     })
-  //   }
-
   render() {
     let allRecs = this.props.recs
-    console.log(allRecs)
 
     return (
-      //   <div>
-      //     {allRecs.map((article) => (
-      //       <div key={article.title}>
-      //         <h1>
-      //           <a href={article.url}>{article.title}</a>
-      //         </h1>
-      //         <h3>{article.description}</h3>
-      //       </div>
-      //     ))}
-      //   </div>
-
       <ThemeProvider theme={theme}>
         <Container>
           <Paper style={{padding: '15px', marginTop: '50px'}} elevation={3}>
@@ -187,7 +148,6 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getArticles: (uid) => dispatch(fetchArticles(uid)),
-    // addArticle: (id) => dispatch(fetchAddArticle(id)),
     getRecs: (kw1, kw2, kw3) => dispatch(fetchRecs(kw1, kw2, kw3)),
   }
 }

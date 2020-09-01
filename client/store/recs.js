@@ -11,6 +11,7 @@ export const getRecs = recs => {
 }
 
 //Thunk creators
+// send keywords for recommendation Express route
 export const fetchRecs = (keywordOne, keywordTwo, keywordThree) => {
     return async dispatch => {
         try {

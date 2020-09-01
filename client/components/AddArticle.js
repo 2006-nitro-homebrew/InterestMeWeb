@@ -21,9 +21,6 @@ class AddArticle extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    // const formName = evt.target.name
-    // const email = evt.target.email.value
-    // const password = evt.target.password.value
     const url = evt.target.url.value
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -39,23 +36,6 @@ class AddArticle extends React.Component {
     // oncall Auth (check readingList) -- pulls ID and task that in
     // pull corresponding documents from here
     return (
-      //   <div>
-      //     <h3>
-      //       Please wait up to 2 minutes for content to show up in Reading List
-      //     </h3>
-      //     <form onSubmit={this.handleSubmit} name={name}>
-      //       <div>
-      //         <label htmlFor="url">
-      //           <small>URL</small>
-      //         </label>
-      //         <input name="url" type="url" />
-      //       </div>
-      //       <div>
-      //         <button type="submit">Add</button>
-      //       </div>
-      //     </form>
-      //   </div>
-
       <ThemeProvider theme={theme}>
         <Container>
           <Paper style={{padding: '15px', marginTop: '40px'}} elevation={0}>

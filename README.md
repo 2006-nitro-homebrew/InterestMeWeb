@@ -1,5 +1,8 @@
 # InterestMe
 
+Link to InterestMe:
+https://interest-me-web.herokuapp.com/
+
 Welcome to InterestMe - the best way to browse and save your favorite articles. Save your favorite articles, view them offline, and enjoy recommendations based on your saved articles list.
 
 ## Features
@@ -14,10 +17,30 @@ Firestore supports offline data persistence. By having the ability to access dat
 
 Cheerio and JSDOM are used in conjunction to scrape web articles. Cheerio is responsible for scraping the text bodies of the article, while JSDOM scrapes the styling. In InterestMe, the article is rendered with the same format and style in order to replicate accordingly.
 
-* Recommendation
+* Article Recommendations (Machine Learning Algorithm)
 
-By using our homegrown, grassfed, non-GMO, no steroids, Kobe farmed, organic machine learning algorithm, InterestMe generates keywords of articles and uses an external News API to recommend similar articles based on the key words.
+By our machine learning algorithm, InterestMe generates keywords of articles and uses an external News API to recommend similar articles based on the key words.
 
-*
+* Chrome Extension
 
+Implemented a Chrome Extension which users can log in and save the current page as an article into the database. It is an alternative for the user to save and access the article offline.
 
+## Technology
+
+* Cheerio
+* JSDOM
+* Firebase / Firestore
+* Express
+* React
+* Redux
+* PWA (Progressive Web App)
+* Material UI
+
+## Start Locally
+
+* Run ```npm run start-dev``` to run the website locally.
+* If you want to run the server and/or webpack separately, you can also ```npm run start-server``` and ```npm run build-client```.
+
+## Notes
+
+* InterestMe webscraper currently only supports HTML based websites. It will not work for dynamic React-based websites.

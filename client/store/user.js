@@ -1,4 +1,3 @@
-// import axios from 'axios'
 import history from '../history'
 import firebase from 'firebase';
 import db from "../db/index";
@@ -14,16 +13,14 @@ const REMOVE_USER = 'REMOVE_USER'
  */
 const defaultUser = {}
 
-/**
- * ACTION CREATORS
- */
+
+// ACTION CREATORS
 const getUser = (user) => ({ type: GET_USER, user })
 const removeUser = () => ({ type: REMOVE_USER })
 
 /**
  * THUNK CREATORS
  */
-
 
 export const auth = (email, password, method) => async (dispatch) => {
     let uid
@@ -100,9 +97,7 @@ export const logout = () => async (dispatch) => {
     }
 }
 
-/**
- * REDUCER
- */
+// Reducer
 export default function (state = defaultUser, action) {
     switch (action.type) {
         case GET_USER:

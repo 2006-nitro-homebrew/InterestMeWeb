@@ -17,7 +17,8 @@ export const fetchArticles = uid => {
     try {
       console.log(uid)
       await db
-        .collection(`users/${uid}/savedOffline`) //replace testuser with actual user id
+      // listen to the document with onSnapshot. Each time the contents of document change, the call updates the document snapshot.
+        .collection(`users/${uid}/savedOffline`)
         .onSnapshot(snapshot => {
           const data = snapshot.docs.map(doc => ({
             id: doc.id,

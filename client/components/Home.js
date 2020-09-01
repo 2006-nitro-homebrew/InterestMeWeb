@@ -19,11 +19,13 @@ const useStyles = makeStyles((theme) => ({
   cardStyle: {},
 }))
 
+//Checks if user is logged in. Will show different component depending on if user is logged in or not.
 const Home = ({isLoggedIn}) => {
   const classes = useStyles()
 
   return (
     <ThemeProvider theme={theme}>
+      {/* shorthand if statement using && */}
       {isLoggedIn && (
         <div className="welcome-user">
           <Grid container spacing={3}>
@@ -148,5 +150,4 @@ const mapState = (state) => {
   }
 }
 
-// export default Home
 export default connect(mapState)(Home)

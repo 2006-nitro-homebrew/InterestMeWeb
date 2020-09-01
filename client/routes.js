@@ -24,15 +24,6 @@ export default class Routes extends React.Component {
         <Route exact path="/readinglist" component={ReadingList} />
         <Route exact path="/readinglist/:articleId" component={SingleArticle} />
         <Route exact path="/addarticle" component={AddArticle} />
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            {/* <Route path="/" component={Home} /> */}
-          </Switch>
-        )}
-
-        {/* Displays our Login component as a fallback */}
-        {/* <Route component={Login} /> */}
       </Switch>
     )
   }

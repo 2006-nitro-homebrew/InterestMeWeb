@@ -21,23 +21,18 @@ export class SingleArticle extends React.Component {
     let article = this.props.article
     let html = article.html
     let reactElement
+    // parser used to render the scraped HTML text into React DOM structure
     let parser = new HtmlToReactParser.Parser()
 
     if (html) {
       reactElement = parser.parse(html.content)
-      // console.log('REACT element -->', reactElement, typeof reactElement)
-      // console.log(html.styles, typeof html.styles)
     }
-
-    // if (html) {
-    // let parsedHTMLStyles = html.styles.map(x.slice(1))
-    // console.log('STYLES', parsedHTMLStyles)
-    // }
 
     return (
       <Container>
         <Paper style={{marginTop: '50px', marginBottom: '50px'}}>
           <div>
+            {/* if the html document is available in the firestore, render the styling accordingly*/}
             {html &&
               html.styles.map((styleString) => {
                 return (
