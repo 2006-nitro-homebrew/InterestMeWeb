@@ -21,7 +21,18 @@ function Alert(props) {
 class AddArticle extends React.Component {
   constructor() {
     super()
+    this.state = {
+      articleURL: '',
+    }
+    this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleChange(evt) {
+    console.log('EVENT', evt)
+    this.setState({
+      articleURL: evt.target.value,
+    })
   }
 
   handleSubmit(evt) {
@@ -31,6 +42,7 @@ class AddArticle extends React.Component {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.props.fetchAddArticle(user.uid, url)
+        this.setState({articleURL: ''})
       } else {
         console.log('error on add article')
       }
@@ -64,6 +76,8 @@ class AddArticle extends React.Component {
                 required
                 fullWidth
                 label="Article URL"
+                onChange={this.handleChange}
+                value={this.state.articleURL}
                 id="url"
                 name="url"
                 type="url"
