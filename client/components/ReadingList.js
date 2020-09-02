@@ -169,7 +169,7 @@ export class ReadingList extends React.Component {
                         </TableCell>
 
                         <TableCell>
-                          <a href={doc.originalurl}>{doc.url}</a>
+                          <a href={doc.originalurl} target = "_blank" rel = "noopener noreferrer">{doc.url}</a>
                         </TableCell>
 
                         <TableCell>
