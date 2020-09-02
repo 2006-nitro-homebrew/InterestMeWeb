@@ -18,32 +18,19 @@ export const fetchAddArticle = (userId, url) => {
   //add articleurl as parameter later
   return async (dispatch) => {
     console.log('fetchaddarticle')
-    let {data} = await axios.post('/api/users/pull', {
-        userId,
-        url
-    })
-    // console.log(data)
-    console.log(data)
-    dispatch(addArticle(data))
-    // scrapeAll("http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html").then((result) => console.log(result));
-
-    // try {
-    //   db.collection(`users/${userId}/savedOffline`) //replace testuser with actual user id
-    //     .add({
-    //       content: scrapeAll(
-    //         "http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
-    //       ).content,
-    //       style: scrapeAll(
-    //         "http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
-    //       ).style,
-    //     })
-    //     .then(function (docRef) {
-    //       console.log("Document written with ID: ", docRef.id);
-    //       dispatch(addArticle(docRef.id));
-    //     });
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    try {
+      let {data} = await axios
+        .post('/api/users/pull', {
+          userId,
+          url,
+        })
+        .then(dispatch(addArticle('SUCCESS')))
+      //if post was successful, send success status
+    } catch (error) {
+      //if post failed, send failure status
+      console.log('ERROR')
+      dispatch(addArticle('ERROR'))
+    }
   }
 }
 

@@ -83,32 +83,19 @@ componentDidMount() {
         })
     }
 
-  handleClick(event, id) {
+  handleClick(event, url) {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        firebase
-          .firestore()
-          .collection('users')
-          .doc(user.uid)
-          .collection('savedOffline')
-          .doc(id)
-          .delete()
+        this.props.fetchAddArticle(user.uid, url)
       } else {
-        console.log()
+        console.log('error on add article')
       }
     })
   }
 
-  //   renderTableHeader() {
-  //     let header = ['Saved List', 'Original Source', 'Keywords', 'Remove Article']
-  //     return header.map((key, index) => {
-  //       return <th key={index}>{key.toUpperCase()}</th>
-  //     })
-  //   }
-
   render() {
     let allRecs = this.props.recs
-    console.log(allRecs)
+    console.log('RECS', allRecs)
 
 
     return (
@@ -183,7 +170,7 @@ componentDidMount() {
                         <TableCell align="center">
                           <IconButton
                             onClick={(event) =>
-                              this.handleClick(event, article.title)
+                              this.handleClick(event, article.url)
                             }
                           >
                             <PostAddIcon />
@@ -211,13 +198,12 @@ const mapState = (state) => {
 }
 
 const mapDispatch = (dispatch) => {
-    return {
-        getArticles: (uid) => dispatch(fetchArticles(uid)),
-        // addArticle: (id) => dispatch(fetchAddArticle(id)),
-        getRecs: (kw1, kw2, kw3) => dispatch(fetchRecs(kw1, kw2, kw3)),
-        getDefaultRecs: () => dispatch(fetchDefaultRecs())
-    }
-
+  return {
+    getArticles: (uid) => dispatch(fetchArticles(uid)),
+    fetchAddArticle: (id, url) => dispatch(fetchAddArticle(id, url)),
+    getRecs: (kw1, kw2, kw3) => dispatch(fetchRecs(kw1, kw2, kw3)),
+    getDefaultRecs: () => dispatch(fetchDefaultRecs())
+  }
 }
 
 export default connect(mapState, mapDispatch)(InterestMe)
