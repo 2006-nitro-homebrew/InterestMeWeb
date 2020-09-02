@@ -4,7 +4,8 @@ import {fetchArticles} from '../store/articles'
 import {fetchAddArticle} from '../store/addArticle'
 import {Link} from 'react-router-dom'
 import firebase from 'firebase'
-import {fetchRecs} from '../store/recs'
+
+import { fetchRecs,fetchDefaultRecs } from '../store/recs'
 import {ThemeProvider} from '@material-ui/core/styles'
 import {theme} from '../theme'
 
@@ -24,11 +25,13 @@ import {
 
 import PostAddIcon from '@material-ui/icons/PostAdd'
 
+
 class InterestMe extends React.Component {
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
   }
+
 
   componentDidMount() {
     // random variable used for pulling a random articles in recommendations
@@ -36,6 +39,58 @@ class InterestMe extends React.Component {
     let random = Math.floor(Math.random() * Math.floor(150))
     this.props.getRecs('trump', 'white', 'house')
   }
+
+componentDidMount() {
+        let random = Math.floor(Math.random() * Math.floor(150));
+        // console.log(random)
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                firebase
+                    .firestore()
+                    .collection('users')
+                    .doc(user.uid)
+                    .collection('savedOffline')
+                    .where("random", '<', random)
+                    .orderBy("random", "desc")
+                    .limit(1)
+                    .onSnapshot(snapshot => {
+                        const data = snapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        }))
+                        console.log(data[0])
+                        if (data.length>0) {
+                            this.props.getRecs(data[0].keywords[0], data[0].keywords[1], data[0].keywords[2])
+                        }
+                        else {
+                            firebase
+                                .firestore()
+                                .collection('users')
+                                .doc(user.uid)
+                                .collection('savedOffline')
+                                .where("random", '>', random)
+                                .orderBy("random")
+                                .limit(1)
+                                .onSnapshot(snapshot2 => {
+                                    const data2 = snapshot2.docs.map(doc => ({
+                                        id: doc.id,
+                                        ...doc.data()
+                                    }))
+                                if (data2.length>0) {
+                                    this.props.getRecs(data2[0].keywords[0], data2[0].keywords[1], data2[0].keywords[2])
+                                }
+                                else{
+                                    this.props.getDefaultRecs()
+                                }
+                            })
+                        }
+                    })
+            } else {
+                console.log()
+            }
+        })
+    }
+
 
   handleClick(event, id) {
       //if clicked, will get the current user on the Auth object and access the firestore DB accordingly
@@ -58,7 +113,22 @@ class InterestMe extends React.Component {
   render() {
     let allRecs = this.props.recs
 
+
     return (
+
+      //   <div>
+      //     {allRecs.map((article) => (
+      //       <div key={article.title}>
+      //         <h1>
+      //           <a href={article.url}>{article.title}</a>
+      //         </h1>
+      //         <h3>{article.description}</h3>
+      //       </div>
+      //     ))}
+      //   </div>
+
+
+
       <ThemeProvider theme={theme}>
         <Container>
           <Paper style={{padding: '15px', marginTop: '50px'}} elevation={3}>
@@ -146,10 +216,20 @@ const mapState = (state) => {
 }
 
 const mapDispatch = (dispatch) => {
+
   return {
     getArticles: (uid) => dispatch(fetchArticles(uid)),
     getRecs: (kw1, kw2, kw3) => dispatch(fetchRecs(kw1, kw2, kw3)),
   }
+
+    return {
+        getArticles: (uid) => dispatch(fetchArticles(uid)),
+        // addArticle: (id) => dispatch(fetchAddArticle(id)),
+        getRecs: (kw1, kw2, kw3) => dispatch(fetchRecs(kw1, kw2, kw3)),
+        getDefaultRecs: () => dispatch(fetchDefaultRecs())
+    }
+
+
 }
 
 export default connect(mapState, mapDispatch)(InterestMe)

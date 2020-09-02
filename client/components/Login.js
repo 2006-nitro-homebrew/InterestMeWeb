@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
-import {auth} from '../store/user'
+import {auth, clearErr} from '../store/user'
 import {Link} from 'react-router-dom'
 import {ThemeProvider} from '@material-ui/core/styles'
 import {theme} from '../theme'
@@ -39,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
 const Auth = (props) => {
   const {name, displayName, handleSubmit, error} = props
   const classes = useStyles()
+
+  useEffect(() => {
+    props.clearErr()
+  },[]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -94,6 +98,12 @@ const Auth = (props) => {
               >
                 {displayName}
               </Button>
+
+
+              {error && <div>{error}</div>}
+            {error && error.response && <div> {error.response.data} </div>}
+
+
               <Grid container>
                 <Grid item>
                   <Link to="../signup">{"Don't have an account? Sign Up"}</Link>
@@ -132,6 +142,7 @@ const mapDispatch = (dispatch) => {
       const password = evt.target.password.value
       dispatch(auth(email, password, formName))
     },
+    clearErr: () => dispatch(clearErr())
   }
 }
 

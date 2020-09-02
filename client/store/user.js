@@ -7,6 +7,7 @@ import db from "../db/index";
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const CLEAR_ERROR = 'CLEAR_ERROR'
 
 /**
  * INITIAL STATE
@@ -17,6 +18,7 @@ const defaultUser = {}
 // ACTION CREATORS
 const getUser = (user) => ({ type: GET_USER, user })
 const removeUser = () => ({ type: REMOVE_USER })
+const clearError = () => ({type: CLEAR_ERROR})
 
 /**
  * THUNK CREATORS
@@ -87,7 +89,7 @@ export const auth = (email, password, method) => async (dispatch) => {
     }
 }
 
-export const logout = () => async (dispatch) => {
+export const logout = () => (dispatch) => {
     try {
         firebase.auth().signOut()
         dispatch(removeUser())
@@ -97,13 +99,25 @@ export const logout = () => async (dispatch) => {
     }
 }
 
+
 // Reducer
+
+export const clearErr = () => (dispatch) => {
+  dispatch(clearError())
+}
+
+/**
+ * REDUCER
+ */
+
 export default function (state = defaultUser, action) {
     switch (action.type) {
         case GET_USER:
             return action.user
         case REMOVE_USER:
             return defaultUser
+        case CLEAR_ERROR:
+            return {...state, error: ''}
         default:
             return state
     }

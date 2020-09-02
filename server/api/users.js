@@ -79,3 +79,29 @@ router.post('/recs', (req, res, next) => {
     next(err)
   }
 })
+
+
+router.get('/defaultrecs', (req, res, next) => {
+  try {
+      const newsapi = new NewsAPI(process.env.NEWSAPI)
+      newsapi.v2.topHeadlines({
+        language: 'en',
+        country: 'us',
+        page: 1
+      }).then(response => {
+        // console.log(response);
+        res.send(response.articles)
+        /*
+          {
+            status: "ok",
+            articles: [...]
+          }
+        */
+      });
+    
+
+  } catch (err) {
+    next(err)
+  }
+})
+
