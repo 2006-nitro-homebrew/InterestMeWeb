@@ -4,7 +4,8 @@ import {fetchArticles} from '../store/articles'
 import {fetchAddArticle} from '../store/addArticle'
 import {Link} from 'react-router-dom'
 import firebase from 'firebase'
-import {fetchRecs} from '../store/recs'
+
+import { fetchRecs,fetchDefaultRecs } from '../store/recs'
 import {ThemeProvider} from '@material-ui/core/styles'
 import {theme} from '../theme'
 
@@ -24,40 +25,63 @@ import {
 
 import PostAddIcon from '@material-ui/icons/PostAdd'
 
+
 class InterestMe extends React.Component {
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
   }
 
-  componentDidMount() {
-    let random = Math.floor(Math.random() * Math.floor(150))
-    console.log(random)
-    // firebase.auth().onAuthStateChanged((user) => {
-    //     if (user) {
-    //         firebase
-    //         .firestore()
-    //         .collection('users')
-    //         .doc(user.uid)
-    //         .collection('savedOffline')
-    //         .where("random", '<', random)
-    //         // .orderBy("")
-    //         .limit(1)
-    //         .get()
-    //         .then(article => {
-    //             console.log(article.exists)
-    //             if (!article.exists) return;
-    //             let data = article.data()
-    //             console.log(data)
-    //         })
-    // this.props.getArticles(user.uid)
-    // this.props.getRecs('trump', 'white', 'house')
-    //     } else {
-    //         console.log()
-    //     }
-    // })
-    this.props.getRecs('trump', 'white', 'house')
-  }
+componentDidMount() {
+        let random = Math.floor(Math.random() * Math.floor(150));
+        // console.log(random)
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                firebase
+                    .firestore()
+                    .collection('users')
+                    .doc(user.uid)
+                    .collection('savedOffline')
+                    .where("random", '<', random)
+                    .orderBy("random", "desc")
+                    .limit(1)
+                    .onSnapshot(snapshot => {
+                        const data = snapshot.docs.map(doc => ({
+                            id: doc.id,
+                            ...doc.data()
+                        }))
+                        console.log(data[0])
+                        if (data.length>0) {
+                            this.props.getRecs(data[0].keywords[0], data[0].keywords[1], data[0].keywords[2])
+                        }
+                        else {
+                            firebase
+                                .firestore()
+                                .collection('users')
+                                .doc(user.uid)
+                                .collection('savedOffline')
+                                .where("random", '>', random)
+                                .orderBy("random")
+                                .limit(1)
+                                .onSnapshot(snapshot2 => {
+                                    const data2 = snapshot2.docs.map(doc => ({
+                                        id: doc.id,
+                                        ...doc.data()
+                                    }))
+                                if (data2.length>0) {
+                                    this.props.getRecs(data2[0].keywords[0], data2[0].keywords[1], data2[0].keywords[2])
+                                }
+                                else{
+                                    this.props.getDefaultRecs()
+                                }
+                            })
+                        }
+                    })
+            } else {
+                console.log()
+            }
+        })
+    }
 
   handleClick(event, id) {
     firebase.auth().onAuthStateChanged((user) => {
@@ -86,6 +110,7 @@ class InterestMe extends React.Component {
     let allRecs = this.props.recs
     console.log(allRecs)
 
+
     return (
       //   <div>
       //     {allRecs.map((article) => (
@@ -97,6 +122,7 @@ class InterestMe extends React.Component {
       //       </div>
       //     ))}
       //   </div>
+
 
       <ThemeProvider theme={theme}>
         <Container>
@@ -185,11 +211,13 @@ const mapState = (state) => {
 }
 
 const mapDispatch = (dispatch) => {
-  return {
-    getArticles: (uid) => dispatch(fetchArticles(uid)),
-    // addArticle: (id) => dispatch(fetchAddArticle(id)),
-    getRecs: (kw1, kw2, kw3) => dispatch(fetchRecs(kw1, kw2, kw3)),
-  }
+    return {
+        getArticles: (uid) => dispatch(fetchArticles(uid)),
+        // addArticle: (id) => dispatch(fetchAddArticle(id)),
+        getRecs: (kw1, kw2, kw3) => dispatch(fetchRecs(kw1, kw2, kw3)),
+        getDefaultRecs: () => dispatch(fetchDefaultRecs())
+    }
+
 }
 
 export default connect(mapState, mapDispatch)(InterestMe)

@@ -24,6 +24,17 @@ export const fetchRecs = (keywordOne, keywordTwo, keywordThree) => {
     }
 }
 
+export const fetchDefaultRecs = () => {
+    return async dispatch => {
+        try {
+            let {data} = await axios.get('/api/users/defaultrecs')
+            dispatch(getRecs(data))
+        } catch (err) {
+            console.error(err)
+        }
+    }
+}
+
 //Reducer
 const initialState = []
 export default function (state = initialState, action) {
