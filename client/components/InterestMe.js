@@ -1,12 +1,12 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { fetchArticles } from '../store/articles'
-import { fetchAddArticle, clearAdd } from '../store/addArticle'
+import {connect} from 'react-redux'
+import {fetchArticles} from '../store/articles'
+import {fetchAddArticle, clearAdd} from '../store/addArticle'
 import firebase from 'firebase'
 
-import { fetchRecs, fetchDefaultRecs } from '../store/recs'
-import { ThemeProvider } from '@material-ui/core/styles'
-import { theme } from '../theme'
+import {fetchRecs, fetchDefaultRecs} from '../store/recs'
+import {ThemeProvider} from '@material-ui/core/styles'
+import {theme} from '../theme'
 import MuiAlert from '@material-ui/lab/Alert'
 
 import {
@@ -29,7 +29,6 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 
-
 class InterestMe extends React.Component {
   constructor() {
     super()
@@ -38,7 +37,7 @@ class InterestMe extends React.Component {
 
   componentDidMount() {
     this.props.clearAdd()
-    let random = Math.floor(Math.random() * Math.floor(150));
+    let random = Math.floor(Math.random() * Math.floor(150))
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         firebase
@@ -46,35 +45,41 @@ class InterestMe extends React.Component {
           .collection('users')
           .doc(user.uid)
           .collection('savedOffline')
-          .where("random", '<', random)
-          .orderBy("random", "desc")
+          .where('random', '<', random)
+          .orderBy('random', 'desc')
           .limit(1)
-          .onSnapshot(snapshot => {
-            const data = snapshot.docs.map(doc => ({
+          .onSnapshot((snapshot) => {
+            const data = snapshot.docs.map((doc) => ({
               id: doc.id,
-              ...doc.data()
+              ...doc.data(),
             }))
             if (data.length > 0) {
-              this.props.getRecs(data[0].keywords[0], data[0].keywords[1], data[0].keywords[2])
-            }
-            else {
+              this.props.getRecs(
+                data[0].keywords[0],
+                data[0].keywords[1],
+                data[0].keywords[2]
+              )
+            } else {
               firebase
                 .firestore()
                 .collection('users')
                 .doc(user.uid)
                 .collection('savedOffline')
-                .where("random", '>', random)
-                .orderBy("random")
+                .where('random', '>', random)
+                .orderBy('random')
                 .limit(1)
-                .onSnapshot(snapshot2 => {
-                  const data2 = snapshot2.docs.map(doc => ({
+                .onSnapshot((snapshot2) => {
+                  const data2 = snapshot2.docs.map((doc) => ({
                     id: doc.id,
-                    ...doc.data()
+                    ...doc.data(),
                   }))
                   if (data2.length > 0) {
-                    this.props.getRecs(data2[0].keywords[0], data2[0].keywords[1], data2[0].keywords[2])
-                  }
-                  else {
+                    this.props.getRecs(
+                      data2[0].keywords[0],
+                      data2[0].keywords[1],
+                      data2[0].keywords[2]
+                    )
+                  } else {
                     this.props.getDefaultRecs()
                   }
                 })
@@ -99,6 +104,8 @@ class InterestMe extends React.Component {
 
   render() {
     let allRecs = this.props.recs
+    let articleCount = this.props.articleCount
+    allRecs = allRecs.slice(0, articleCount)
 
     return (
       <ThemeProvider theme={theme}>
@@ -107,9 +114,11 @@ class InterestMe extends React.Component {
             <Alert severity="success">Article successfully added!</Alert>
           )}
           {this.props.addArticle === 'ERROR' && (
-            <Alert severity="error">Failed to add article. Article not supported.</Alert>
+            <Alert severity="error">
+              Failed to add article. Article not supported.
+            </Alert>
           )}
-          <Paper style={{ padding: '15px', marginTop: '50px' }} elevation={3}>
+          <Paper style={{padding: '15px', marginTop: '50px'}} elevation={3}>
             <Card
               align="center"
               elevation={3}
@@ -124,7 +133,7 @@ class InterestMe extends React.Component {
                 component="h2"
                 variant="h6"
                 gutterBottom
-                style={{ color: '#fafafa', fontWeight: 200 }}
+                style={{color: '#fafafa', fontWeight: 200}}
               >
                 Interest Me - Articles You May Be Interested In
               </Typography>
@@ -133,21 +142,21 @@ class InterestMe extends React.Component {
             <TableContainer
               component={Paper}
               elevation={0}
-              style={{ marginTop: '10px' }}
+              style={{marginTop: '10px'}}
             >
               <Table size="small" id="readinglist">
-                <TableHead style={{ backgroundColor: '#f5f5f5' }}>
+                <TableHead style={{backgroundColor: '#f5f5f5'}}>
                   <TableRow>
                     <TableCell>
-                      <Typography style={{ fontWeight: 700 }}>TITLE</Typography>
+                      <Typography style={{fontWeight: 700}}>TITLE</Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography style={{ fontWeight: 700 }}>
+                      <Typography style={{fontWeight: 700}}>
                         ARTICLE CONTENT
                       </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography style={{ fontWeight: 700 }}>ADD</Typography>
+                      <Typography style={{fontWeight: 700}}>ADD</Typography>
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -157,7 +166,13 @@ class InterestMe extends React.Component {
                     return (
                       <TableRow key={article.title}>
                         <TableCell>
-                          <a href={article.url} target = "_blank" rel = "noopener noreferrer">{article.title}</a>
+                          <a
+                            href={article.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {article.title}
+                          </a>
                         </TableCell>
                         <TableCell>
                           <p> {article.description}</p>
@@ -190,7 +205,7 @@ const mapState = (state) => {
     recs: state.recs,
     articles: state.articles,
     user: state.user,
-    addArticle: state.addArticle
+    addArticle: state.addArticle,
   }
 }
 
@@ -200,7 +215,7 @@ const mapDispatch = (dispatch) => {
     fetchAddArticle: (id, url) => dispatch(fetchAddArticle(id, url)),
     getRecs: (kw1, kw2, kw3) => dispatch(fetchRecs(kw1, kw2, kw3)),
     getDefaultRecs: () => dispatch(fetchDefaultRecs()),
-    clearAdd: () => dispatch(clearAdd())
+    clearAdd: () => dispatch(clearAdd()),
   }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
+
 // import PropTypes from "prop-types";
 import {Login, Home, Signup} from './components'
 
@@ -20,7 +21,11 @@ export default class Routes extends React.Component {
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/interestMe" component={InterestMe} />
+        {/* <Route path="/interestMe" component={InterestMe} articleCount={3} /> */}
+        <Route
+          path="/interestMe"
+          render={() => <InterestMe articleCount={20} />}
+        />
         <Route exact path="/readinglist" component={ReadingList} />
         <Route exact path="/readinglist/:articleId" component={SingleArticle} />
         <Route exact path="/addarticle" component={AddArticle} />
