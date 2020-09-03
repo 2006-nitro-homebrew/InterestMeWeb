@@ -10,7 +10,6 @@ import {AppBar, Toolbar, Button} from '@material-ui/core'
 let fontStyle = {textDecoration: 'none', color: '#FFF'}
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-
   <ThemeProvider theme={theme}>
     <AppBar position="sticky">
       <Toolbar>
@@ -24,7 +23,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             </Link>
 
             <Link to="/interestMe" style={fontStyle}>
-              <Button color="inherit">Interest Me</Button>
+              <Button color="inherit">Recommendations</Button>
             </Link>
 
             <Link to="/addarticle" style={fontStyle}>

@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {ThemeProvider} from '@material-ui/core/styles'
 import {theme} from '../theme'
 import {Paper, Button, Grid, Typography} from '@material-ui/core'
-import {AddArticle} from './index'
+import {InterestMe} from './index'
 import {makeStyles} from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -39,41 +39,16 @@ const Home = ({isLoggedIn}) => {
                   variant="h4"
                   style={{
                     marginLeft: '30px',
-                    marginTop: '10px',
+                    marginTop: '20px',
+                    paddingBottom: '30px',
                     fontWeight: 200,
                   }}
                 >
                   Welcome back!
                 </Typography>
-                <AddArticle />
-                <Grid container>
-                  <Grid item xs={6}>
-                    <Paper
-                      className={classes.paper}
-                      elevation={0}
-                      style={{marginLeft: '20px'}}
-                    >
-                      <Link to="/readinglist">
-                        <Button fullWidth variant="contained">
-                          Reading List
-                        </Button>
-                      </Link>
-                    </Paper>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Paper
-                      className={classes.paper}
-                      elevation={0}
-                      style={{marginRight: '20px'}}
-                    >
-                      <Link to="/interestMe">
-                        <Button fullWidth variant="contained">
-                          Interest Me
-                        </Button>
-                      </Link>
-                    </Paper>
-                  </Grid>
-                </Grid>
+
+                <InterestMe articleCount={5} />
+                <p style={{paddingBottom: '20px'}}></p>
               </Paper>
             </Grid>
             <Grid item xs={1} />

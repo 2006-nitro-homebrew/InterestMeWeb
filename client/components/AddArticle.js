@@ -53,7 +53,6 @@ class AddArticle extends React.Component {
   }
 
   render() {
-
     // passes user id and article url to the thunk. modify the thunk to accept both arguments. pull user id using
     // oncall Auth (check readingList) -- pulls ID and task that in
     // pull corresponding documents from here
@@ -64,7 +63,9 @@ class AddArticle extends React.Component {
             <Alert severity="success">Article successfully added!</Alert>
           )}
           {this.props.addArticle === 'ERROR' && (
-            <Alert severity="error">Failed to add article. Article not supported.</Alert>
+            <Alert severity="error">
+              Failed to add article. Article not supported.
+            </Alert>
           )}
 
           <Paper style={{padding: '15px', marginTop: '40px'}} elevation={0}>
@@ -109,7 +110,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchAddArticle: (id, url) => dispatch(fetchAddArticle(id, url)),
-    clearAdd: () => dispatch(clearAdd())
+    clearAdd: () => dispatch(clearAdd()),
   }
 }
 
