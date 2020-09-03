@@ -126,7 +126,7 @@ class InterestMe extends React.Component {
                 gutterBottom
                 style={{ color: '#fafafa', fontWeight: 200 }}
               >
-                Interest Me
+                Interest Me - Articles You May Be Interested In
               </Typography>
             </Card>
 
