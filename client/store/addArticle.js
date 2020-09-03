@@ -3,6 +3,7 @@ import axios from 'axios'
 
 //Action types
 const ADD_ARTICLE = 'ADD_ARTICLE'
+const CLEAR_ADD = 'CLEAR_ADD'
 
 //Action creators
 export const addArticle = (newArticle) => {
@@ -12,26 +13,30 @@ export const addArticle = (newArticle) => {
   }
 }
 
+const clear = () => ({type: CLEAR_ADD})
+
 //Thunk creators
 //For when user saves an article and adds into the database
 export const fetchAddArticle = (userId, url) => {
   //add articleurl as parameter later
-  return async (dispatch) => {
-    console.log('fetchaddarticle')
-    try {
-      let {data} = await axios
+  return (dispatch) => {
+      let {data} = axios
         .post('/api/users/pull', {
           userId,
           url,
         })
-        .then(dispatch(addArticle('SUCCESS')))
-      //if post was successful, send success status
-    } catch (error) {
-      //if post failed, send failure status
-      console.log('ERROR')
-      dispatch(addArticle('ERROR'))
-    }
+        .catch(() => {
+          dispatch(addArticle('ERROR'))
+          return false
+        })
+        .then((bool) => {
+          if(bool) dispatch(addArticle('SUCCESS'))
+        })
   }
+}
+
+export const clearAdd = () => (dispatch) => {
+  dispatch(clear())
 }
 
 //Reducer
@@ -40,6 +45,8 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case ADD_ARTICLE:
       return action.newArticle
+    case CLEAR_ADD:
+      return initialState
     default:
       return state
   }

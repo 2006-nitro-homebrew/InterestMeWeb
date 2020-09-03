@@ -2,16 +2,12 @@ const cheerio = require('cheerio')
 const { JSDOM } = require('jsdom')
 const axios = require('axios')
 
-const ARTICLE_URL =
-  'http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html'
-
 async function scrapeAll(ARTICLE_URL) {
   async function scrapeContent(ARTICLE_URL) {
     try {
       const res = await axios.get(ARTICLE_URL, {
         headers: { 'Access-Control-Allow-Origin': '*' },
       })
-      console.log(res)
       const $ = cheerio.load(res.data)
       let article = $('body').html() //use article tag for those that have it
 
@@ -21,7 +17,6 @@ async function scrapeAll(ARTICLE_URL) {
       let hostname = (new URL(ARTICLE_URL)).hostname.split('.');
       let pathname = (new URL(ARTICLE_URL)).pathname.split(/[^\w\s]|_/g);
       let htmlwords = $("body").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' ').split(" ");
-      console.log($("body").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' '))
       let h1words = $("h1").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' ').split(" ");
       let h2words = $("h2").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' ').split(" ");
       let h3words = $("h3").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' ').split(" ");
@@ -78,7 +73,5 @@ async function scrapeAll(ARTICLE_URL) {
 }
 
 module.exports = { scrapeAll }
-// replace console.log with function to write it to database
-// scrapeAll(ARTICLE_URL).then((result) => console.log(result));
 
 

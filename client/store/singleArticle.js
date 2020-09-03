@@ -16,12 +16,11 @@ export const fetchArticle = (uid, id) => {
   return dispatch => {
     try {
       db
-        .collection(`users/${uid}/savedOffline`) //replace testuser with actual user id
+        .collection(`users/${uid}/savedOffline`)
         .doc(id)
         .get()
         .then(doc => {
           if (!doc.exists) return
-          console.log('Document data: ', doc.data())
           let data = doc.data()
           dispatch(getArticle(data))
         })
