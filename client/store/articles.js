@@ -15,7 +15,6 @@ export const getArticles = articles => {
 export const fetchArticles = uid => {
   return async dispatch => {
     try {
-      console.log(uid)
       await db
         .collection(`users/${uid}/savedOffline`) //replace testuser with actual user id
         .onSnapshot(snapshot => {

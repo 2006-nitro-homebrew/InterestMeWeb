@@ -11,14 +11,10 @@ module.exports = router
 
 router.post('/pull', async (req, res, next) => {
   try {
-    // console.log('is this req.body?', req.body)
-    // const ARTICLE_URL =
-    //   'http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html'
     scrapeAll(req.body.url).then((result) => {
       let savedResult = {content: result.content.article, styles: result.styles}
       let m = new Map()
       const customweight = result.content.htmlwords.length > 150 ? 0.3 : 0.6
-      console.log(customweight)
       wordhash(result.content.htmlwords, customweight, m)
       wordhash(result.content.h1words, 6, m)
       wordhash(result.content.h2words, 5, m)
@@ -47,9 +43,6 @@ router.post('/pull', async (req, res, next) => {
       })
       let keywords = []
       if (sortedarr.length >= 3) {
-        // for (let i = 0; i < 3; i++) {
-        //   keywords.push(sortedarr[i][0])
-        // }
         while (keywords.length < 3) {
           let add = sortedarr.shift()[0]
           if (add.length > 2 && add.length < 15) {
@@ -58,7 +51,8 @@ router.post('/pull', async (req, res, next) => {
         }
       }
       let random = Math.floor(Math.random() * Math.floor(150))
-      firebase
+
+        firebase
         .firestore()
         .collection('users')
         .doc(req.body.userId)
@@ -71,14 +65,20 @@ router.post('/pull', async (req, res, next) => {
           keywords,
           random,
         })
+        .catch(() => {
+          res.send(404)
+        })
+        .then((bool) => {
+          if(bool) res.send(200)
+        })
+      
     })
-    res.send(200)
+    // Deprecated fields that can be saved to Firebase
     // htmlwords: result.content.htmlwords,
     // h1words: result.content.h1words, h2words: result.content.h2words, h3words: result.content.h3words,
     // h4words: result.content.h4words, h5words: result.content.h5words, h6words: result.content.h6words,
     // hostname: result.content.hostname, pathname: result.content.pathname,
   } catch (error) {
-    res.send(404)
     console.error(error)
   }
 })
@@ -94,14 +94,7 @@ router.post('/recs', (req, res, next) => {
         page: 1,
       })
       .then((response) => {
-        // console.log(response);
         res.send(response.articles)
-        /*
-          {
-            status: "ok",
-            articles: [...]
-          }
-        */
       })
   } catch (err) {
     next(err)
@@ -116,14 +109,7 @@ router.get('/defaultrecs', (req, res, next) => {
         country: 'us',
         page: 1
       }).then(response => {
-        // console.log(response);
         res.send(response.articles)
-        /*
-          {
-            status: "ok",
-            articles: [...]
-          }
-        */
       });
     
 

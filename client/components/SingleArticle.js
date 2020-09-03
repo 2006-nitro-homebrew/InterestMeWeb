@@ -25,14 +25,7 @@ export class SingleArticle extends React.Component {
 
     if (html) {
       reactElement = parser.parse(html.content)
-      // console.log('REACT element -->', reactElement, typeof reactElement)
-      // console.log(html.styles, typeof html.styles)
     }
-
-    // if (html) {
-    // let parsedHTMLStyles = html.styles.map(x.slice(1))
-    // console.log('STYLES', parsedHTMLStyles)
-    // }
 
     return (
       <Container>

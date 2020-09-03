@@ -65,45 +65,6 @@ export class ReadingList extends React.Component {
     let allList = this.props.list
 
     return (
-      // <div>
-      //   <h2 id="title">Saved Reading List</h2>
-      //   {allList.length == 0 ? <h2>Nothing Saved</h2> : console.log()}
-      //   <table id="readinglist">
-      //     <tbody>
-      //       {allList.length > 0 ? (
-      //         <tr>{this.renderTableHeader()}</tr>
-      //       ) : (
-      //         console.log()
-      //       )}
-      //       {allList.length > 0
-      //         ? allList.map((doc) => (
-      //             <tr key={doc.id}>
-      //               <td>
-      //                 <Link to={`../readinglist/${doc.id}`}>{doc.title}</Link>
-      //               </td>
-      //               <td>
-      //                 <a href={doc.originalurl}>{doc.url}</a>
-      //               </td>
-      //               {doc.keywords ? (
-      //                 <td>{doc.keywords.join(', ')}</td>
-      //               ) : (
-      //                 <td>No Keywords Found</td>
-      //               )}
-      //               <td>
-      //                 <button
-      //                   type="button"
-      //                   onClick={(event) => this.handleClick(event, doc.id)}
-      //                 >
-      //                   Remove
-      //                 </button>
-      //               </td>
-      //             </tr>
-      //           ))
-      //         : console.log()}
-      //     </tbody>
-      //   </table>
-      // </div>
-
       <ThemeProvider theme={theme}>
         <Container>
           <Paper style={{padding: '15px', marginTop: '50px'}} elevation={3}>
