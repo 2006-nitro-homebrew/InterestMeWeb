@@ -157,7 +157,7 @@ class InterestMe extends React.Component {
                     return (
                       <TableRow key={article.title}>
                         <TableCell>
-                          <a href={article.url}>{article.title}</a>
+                          <a href={article.url} target = "_blank" rel = "noopener noreferrer">{article.title}</a>
                         </TableCell>
                         <TableCell>
                           <p> {article.description}</p>
