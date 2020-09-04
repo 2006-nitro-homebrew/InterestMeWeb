@@ -1,3 +1,4 @@
+//adds each word to the hashmap based on weight
 function wordhash(arr,weight,map){
     for(let i = 0; i < arr.length; i++){
         let w = arr[i].toLowerCase()

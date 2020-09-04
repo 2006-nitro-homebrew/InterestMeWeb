@@ -12,6 +12,7 @@ export const getArticle = article => {
 }
 
 //Thunk creators
+//fetch one single article based on userId to open for view
 export const fetchArticle = (uid, id) => {
   return dispatch => {
     try {

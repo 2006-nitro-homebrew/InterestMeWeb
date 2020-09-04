@@ -18,7 +18,6 @@ const clear = () => ({type: CLEAR_ADD})
 //Thunk creators
 //For when user saves an article and adds into the database
 export const fetchAddArticle = (userId, url) => {
-  //add articleurl as parameter later
   return (dispatch) => {
       let {data} = axios
         .post('/api/users/pull', {

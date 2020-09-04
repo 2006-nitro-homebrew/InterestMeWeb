@@ -29,6 +29,7 @@ export class ReadingList extends React.Component {
   }
 
   componentDidMount() {
+      //Component will render articles from the redux store based on the user id passed in
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.props.getArticles(user.uid)
@@ -39,6 +40,7 @@ export class ReadingList extends React.Component {
   }
 
   handleClick(event, id) {
+      //Delete the saved article based on the user that is logged in firestore
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         firebase

@@ -11,6 +11,7 @@ export const getRecs = recs => {
 }
 
 //Thunk creators
+//fetches recommended articles based on the keywords generated from the machine learning algorithm
 export const fetchRecs = (keywordOne, keywordTwo, keywordThree) => {
     return async dispatch => {
         try {
@@ -24,6 +25,7 @@ export const fetchRecs = (keywordOne, keywordTwo, keywordThree) => {
     }
 }
 
+//default recommendations (top news) for if user has no saved articles
 export const fetchDefaultRecs = () => {
     return async dispatch => {
         try {

@@ -12,11 +12,13 @@ export const getArticles = articles => {
 }
 
 //Thunk creators
+// display saved articles according to userId logged in
+// listen to the document with onSnapshot. Each time the contents of document change, the call updates the document snapshot.
 export const fetchArticles = uid => {
   return async dispatch => {
     try {
       await db
-        .collection(`users/${uid}/savedOffline`) //replace testuser with actual user id
+        .collection(`users/${uid}/savedOffline`)
         .onSnapshot(snapshot => {
           const data = snapshot.docs.map(doc => ({
             id: doc.id,

@@ -1,6 +1,5 @@
 const firebase = require('firebase')
 require("firebase/firestore");
-// import {firebaseConfig} from '../secrets'
 require('../../secrets')
 let firebaseConfig = {
     apiKey: process.env.APIKEY,
