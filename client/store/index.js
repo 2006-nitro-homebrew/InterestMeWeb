@@ -11,9 +11,8 @@ import recs from './recs'
 
 const persistedState = loadState()
 
-const reducer = combineReducers({user, articles, article, addArticle,recs}) //make sure to put individual reducers here
+const reducer = combineReducers({user, articles, article, addArticle,recs})
 const middleware = composeWithDevTools(
-  // applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
   applyMiddleware(thunkMiddleware)
 )
 const store = createStore(reducer, persistedState, middleware)
@@ -25,4 +24,4 @@ store.subscribe(() => {
 })
 
 export default store
-// export * from "./user";
+

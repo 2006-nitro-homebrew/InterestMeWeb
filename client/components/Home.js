@@ -18,12 +18,13 @@ const useStyles = makeStyles((theme) => ({
   },
   cardStyle: {},
 }))
-
+//Checks if user is logged in. Will show different homepage depending on if user is logged in or not.
 const Home = ({isLoggedIn}) => {
   const classes = useStyles()
 
   return (
     <ThemeProvider theme={theme}>
+      {/* shorthand if statement using && */}
       {isLoggedIn && (
         <div className="welcome-user">
           <Grid container spacing={3}>

@@ -36,6 +36,8 @@ class InterestMe extends React.Component {
   }
 
   componentDidMount() {
+    // random variable used for pulling a random articles in recommendations
+    // used so recommendation list won't show the same articles upon refresh
     this.props.clearAdd()
     let random = Math.floor(Math.random() * Math.floor(150))
     firebase.auth().onAuthStateChanged((user) => {
@@ -45,29 +47,37 @@ class InterestMe extends React.Component {
           .collection('users')
           .doc(user.uid)
           .collection('savedOffline')
+          //pull the random number and check if the number is less than the random number generated
           .where('random', '<', random)
+          //the greatest random number shows up first
           .orderBy('random', 'desc')
+          //show the article that has the greatest random number
           .limit(1)
+          //saved into data
           .onSnapshot((snapshot) => {
             const data = snapshot.docs.map((doc) => ({
               id: doc.id,
               ...doc.data(),
             }))
+            //check the data on the firebase to see if there is an article
             if (data.length > 0) {
               this.props.getRecs(
                 data[0].keywords[0],
                 data[0].keywords[1],
                 data[0].keywords[2]
               )
+            //if there is no article in there, there is no random number less than the generated random number
             } else {
               firebase
                 .firestore()
                 .collection('users')
                 .doc(user.uid)
                 .collection('savedOffline')
-                .where('random', '>', random)
+            //pull the random number and check if the number is greater than the random number generated
+                .where('random', '>=', random)
                 .orderBy('random')
                 .limit(1)
+
                 .onSnapshot((snapshot2) => {
                   const data2 = snapshot2.docs.map((doc) => ({
                     id: doc.id,
@@ -80,6 +90,8 @@ class InterestMe extends React.Component {
                       data2[0].keywords[2]
                     )
                   } else {
+                    //if user has no saved articles, unable to retrieve a random article for keywords to send to recommendation thunk
+                    //pull default recommendation instead
                     this.props.getDefaultRecs()
                   }
                 })
@@ -92,9 +104,12 @@ class InterestMe extends React.Component {
   }
 
   handleClick(event, url) {
+      //if clicked, will get the current user on the Auth object and access the firestore DB accordingly
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+         //clears the 'success' or 'error' message after adding article
         this.props.clearAdd()
+        //retrieves userId and url of article from the database
         this.props.fetchAddArticle(user.uid, url)
       } else {
         console.log('error on add article')

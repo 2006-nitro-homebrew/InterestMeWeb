@@ -12,7 +12,6 @@ export class SingleArticle extends React.Component {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.props.getArticle(user.uid, articleId)
-      } else {
       }
     })
   }
@@ -21,6 +20,7 @@ export class SingleArticle extends React.Component {
     let article = this.props.article
     let html = article.html
     let reactElement
+        // parser used to render the scraped HTML text into React DOM structure
     let parser = new HtmlToReactParser.Parser()
 
     if (html) {
@@ -41,6 +41,7 @@ export class SingleArticle extends React.Component {
               })}
             {html && reactElement}
           </div>
+      {/* if the html document is available in the firestore, render the styling accordingly*/}
         </Paper>
       </Container>
     )

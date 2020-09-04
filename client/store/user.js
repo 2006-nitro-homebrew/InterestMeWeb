@@ -25,8 +25,6 @@ const clearError = () => ({type: CLEAR_ERROR})
 /**
  * THUNK CREATORS
  */
-
-
 export const auth = (email, password, method) => async (dispatch) => {
     let uid
     try {

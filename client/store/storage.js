@@ -1,3 +1,7 @@
+//persisting redux state to local storage
+
+//loads the state from localStorage
+
 export const loadState = () => {
   try {
     const serializedState = localStorage.getItem('state')
@@ -7,6 +11,8 @@ export const loadState = () => {
     return undefined
   }
 }
+
+// Saves the state to localStorage
 
 export const saveState = state => {
   try {

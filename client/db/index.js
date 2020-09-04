@@ -13,8 +13,8 @@ let firebaseConfig = {
   measurementId: process.env.MEASUREMENTID,
 }
 
+// initializes the firestore database
 firebase.initializeApp(firebaseConfig)
 let db = firebase.firestore()
 
-// console.log(firebaseConfig)
 export default db

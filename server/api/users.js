@@ -9,11 +9,16 @@ require('../../secrets')
 
 module.exports = router
 
+//route to scrape article content, styles, and keywords
 router.post('/pull', async (req, res, next) => {
   try {
     scrapeAll(req.body.url).then((result) => {
       let savedResult = {content: result.content.article, styles: result.styles}
+      //make hashmap to keep track of all words
       let m = new Map()
+      //inserting words based on weight of words
+      //tagged words (h1,-h6) would get weighed higher
+      //words within the body tag are scored 0.3 (if more than 150 words in the body) or 0.6 (if less than 150 words in the body)
       const customweight = result.content.htmlwords.length > 150 ? 0.3 : 0.6
       wordhash(result.content.htmlwords, customweight, m)
       wordhash(result.content.h1words, 6, m)
@@ -32,16 +37,18 @@ router.post('/pull', async (req, res, next) => {
       )
       wordhash(result.content.hostname, 5, m)
       wordhash(result.content.pathname, 4, m)
-
+      //loop through the stoplist words and removes them from the hashmap (unnecessary words)
       for (let i = 0; i < stoplist.length; i++) {
         m.delete(stoplist[i])
       }
       m.delete('')
+      //sort by which words have most weight (greatest to least)
       let arr = [...m.entries()]
       let sortedarr = arr.sort(function (a, b) {
         return b[1] - a[1]
       })
       let keywords = []
+      //take first 3 sorted words (3 highest scored) where word length is greater than 2 and less than 15
       if (sortedarr.length >= 3) {
         while (keywords.length < 3) {
           let add = sortedarr.shift()[0]
@@ -50,8 +57,9 @@ router.post('/pull', async (req, res, next) => {
           }
         }
       }
+      //generate random integer to pick random integer from 0-150 to pick a random article for the recommendation page
       let random = Math.floor(Math.random() * Math.floor(150))
-
+      //add article (scraped article) to the firestore
         firebase
         .firestore()
         .collection('users')
@@ -71,7 +79,7 @@ router.post('/pull', async (req, res, next) => {
         .then((bool) => {
           if(bool) res.send(200)
         })
-      
+
     })
     // Deprecated fields that can be saved to Firebase
     // htmlwords: result.content.htmlwords,
@@ -85,6 +93,7 @@ router.post('/pull', async (req, res, next) => {
 
 router.post('/recs', (req, res, next) => {
   try {
+    //get the news recommendations based on keywords from the news API
     const newsapi = new NewsAPI(process.env.NEWSAPI)
     newsapi.v2
       .everything({
@@ -101,6 +110,7 @@ router.post('/recs', (req, res, next) => {
   }
 })
 
+//if the user has no saved articles, send top headlines instead for recommendation
 router.get('/defaultrecs', (req, res, next) => {
   try {
       const newsapi = new NewsAPI(process.env.NEWSAPI)
@@ -111,8 +121,6 @@ router.get('/defaultrecs', (req, res, next) => {
       }).then(response => {
         res.send(response.articles)
       });
-    
-
   } catch (err) {
     next(err)
   }

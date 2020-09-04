@@ -3,19 +3,24 @@ const { JSDOM } = require('jsdom')
 const axios = require('axios')
 
 async function scrapeAll(ARTICLE_URL) {
+  //scrape article content using cheerio
   async function scrapeContent(ARTICLE_URL) {
     try {
+      //used for loading article data
       const res = await axios.get(ARTICLE_URL, {
         headers: { 'Access-Control-Allow-Origin': '*' },
       })
       const $ = cheerio.load(res.data)
-      let article = $('body').html() //use article tag for those that have it
-
+      //scrape the article based on body tag
+      let article = $('body').html()
+      //scrape the title
       let title = $('head > title').text()
       let originalurl = ARTICLE_URL
+      //scrape the host name (ex: cnn.com)
       let url = (new URL(ARTICLE_URL)).hostname
       let hostname = (new URL(ARTICLE_URL)).hostname.split('.');
       let pathname = (new URL(ARTICLE_URL)).pathname.split(/[^\w\s]|_/g);
+      //store array of words based on tags
       let htmlwords = $("body").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' ').split(" ");
       let h1words = $("h1").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' ').split(" ");
       let h2words = $("h2").text().replace(/[^\w\s]|_/g, " ").replace(/\s\s+/g, ' ').split(" ");
@@ -31,7 +36,7 @@ async function scrapeAll(ARTICLE_URL) {
       console.error(err)
     }
   }
-
+  //scrape article styling using JSDOM
   async function scrapeStyle(ARTICLE_URL) {
     let externalStyles = []
     let internalStyles = []
@@ -59,6 +64,7 @@ async function scrapeAll(ARTICLE_URL) {
 
   let allStyles = intStyle.slice() //copy over internal styles
 
+  //get content from external style links
   for (const styleLink of extStyle) {
     let { data: styling } = await axios.get(styleLink, {
       headers: { 'Access-Control-Allow-Origin': '*' },
