@@ -77,6 +77,7 @@ class InterestMe extends React.Component {
                 .where('random', '>=', random)
                 .orderBy('random')
                 .limit(1)
+
                 .onSnapshot((snapshot2) => {
                   const data2 = snapshot2.docs.map((doc) => ({
                     id: doc.id,
